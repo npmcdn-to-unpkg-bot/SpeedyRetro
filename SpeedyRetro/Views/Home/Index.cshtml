@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "Speedy Retro";
+}
+@section css{
+    <style>
+        .droppable {
+            width: 350px;
+            height: 70px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+    </style>
+
+}
+@section scripts {
+    <!-- 1. Load libraries -->
+    <!-- IE required polyfills, in this exact order -->
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js"></script>
+    <script src="https://npmcdn.com/angular2@2.0.0-beta.13/es6/dev/src/testing/shims_for_IE.js"></script>
+
+    <script src="https://code.angularjs.org/2.0.0-beta.13/angular2-polyfills.js"></script>
+    <script src="https://code.angularjs.org/tools/system.js"></script>
+    <script src="https://npmcdn.com/typescript@1.8.9/lib/typescript.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.13/Rx.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.13/angular2.dev.js"></script>*@
+
+
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    @*<script>
+        System.config({
+            transpiler: 'typescript',
+            typescriptOptions: { emitDecoratorMetadata: true },
+            packages: { 'app': { defaultExtension: 'ts' } }
+        });
+        System.import('app/main')
+              .then(null, console.error.bind(console));
+    </script>*@
+
+    <script>
+
+        $(function () {
+
+            var centralHub = $.connection.centralHub;
+            centralHub.client.onCommentStateChanged = function (userId, userComment, commentState) {
+
+            };
+
+            $.connection.hub.start().done(function () {
+                $('.draggable').on('dragend', function (event) {
+                    var ev = event.originalEvent;
+
+                    var textArea = ev.target;
+
+                    var td = textArea.parentNode.parentNode;
+
+                    var comment = textArea.innerText;
+
+                    var commentState = td.dataset.commentstate;
+
+                    var userId = document.getElementById('userId').value;
+
+                    centralHub.server.send(userId, comment, commentState);
+                });
+            });
+
+            $('.droppable').on('drop', function (event) {
+                var ev = event.originalEvent;
+
+                ev.preventDefault();
+
+                var data = ev.dataTransfer.getData("plain/text");
+
+                var obj = JSON.parse(data);
+
+                ev.target.appendChild(document.getElementById(obj.id));
+            });
+
+            $('.droppable').on('dragover', function (event) {
+                var ev = event.originalEvent;
+                ev.preventDefault();
+            });
+
+            $('.draggable').on('dragstart', function (event) {
+                var ev = event.originalEvent;
+                setData(ev);
+            });
+
+            $('#create').click(function (event) {
+                var b = Math.random();
+                var commentMarkup = '<textarea id="drag'+b+'" class="draggable" draggable="true" ondragstart="setData(event);" width="336" height="69"></textarea>';
+                $('#start').append(commentMarkup);
+            });
+        });
+
+        function setData(event) {
+            var id = event.target.id;
+            event.dataTransfer.setData("plain/text", '{"id": "' + event.target.id + '"}');
+        }
+    </script>
+}
+
+<button id="create">Create</button>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Good :)</th>
+            <th>Bad :(</th>
+            <th>Action Points </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">
+                <div id="start">
+                    <textarea id="drag1" class="draggable" draggable="true" width="336" height="69"></textarea>
+                </div>
+            </th>
+            <td data-commentstate="good">
+                <div class="droppable">
+                </div>
+            </td>
+            <td data-commentstate="bad"><div class="droppable"></div></td>
+            <td data-commentstate="action"><div class="droppable"></div></td>
+        </tr>
+    </tbody>
+</table>
+
+<input type="hidden" id="userId" value="3bce4931-6c75-41ab-afe0-2ec108a30860"/>
+
+@*<my-comment></my-comment>*@

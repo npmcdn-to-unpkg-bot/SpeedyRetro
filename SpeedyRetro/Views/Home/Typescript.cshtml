@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "TypeScript Madness";
+}
+@section css{
+    <style>
+        #div1, #div2 {
+            width: 350px;
+            height: 70px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+    </style>
+
+}
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <script>
+
+        $(function () {
+            $('#div1, #div2').on('dragover', function (event) {
+                var ev = event.originalEvent;
+                ev.preventDefault();
+            });
+            $('#div1, #div2').on('drop', function (event) {
+                var ev = event.originalEvent;
+                ev.preventDefault();
+                var blah = this;
+                var data = ev.dataTransfer.getData("text/plain");
+                ev.target.appendChild(document.getElementById(data));
+            });
+            $('#drag1').on('dragstart', function (event) {
+                var ev = event.originalEvent;
+                ev.dataTransfer.setData("text/plain", ev.target.id);
+            })
+        });
+    </script>
+}
+
+@*<my-app>Loading...</my-app>*@
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Good :)</th>
+            <th>Bad :(</th>
+            <th>Action Points </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>
+                <div id="div1">
+                    <img id="drag1" src="img_logo.gif" draggable="true" width="336" height="69">
+                </div>
+            </td>
+            <td><div id="div2"></div></td>
+            <td>@@mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@@fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@@twitter</td>
+        </tr>
+    </tbody>
+</table>

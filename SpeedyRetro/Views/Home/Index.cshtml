@@ -16,36 +16,55 @@
     <!-- 1. Load libraries -->
     <!-- IE required polyfills, in this exact order -->
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js"></script>
-    <script src="https://npmcdn.com/angular2@2.0.0-beta.13/es6/dev/src/testing/shims_for_IE.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js"></script>
+        <script src="https://npmcdn.com/angular2@2.0.0-beta.13/es6/dev/src/testing/shims_for_IE.js"></script>
 
-    <script src="https://code.angularjs.org/2.0.0-beta.13/angular2-polyfills.js"></script>
-    <script src="https://code.angularjs.org/tools/system.js"></script>
-    <script src="https://npmcdn.com/typescript@1.8.9/lib/typescript.js"></script>
-    <script src="https://code.angularjs.org/2.0.0-beta.13/Rx.js"></script>
-    <script src="https://code.angularjs.org/2.0.0-beta.13/angular2.dev.js"></script>*@
+        <script src="https://code.angularjs.org/2.0.0-beta.13/angular2-polyfills.js"></script>
+        <script src="https://code.angularjs.org/tools/system.js"></script>
+        <script src="https://npmcdn.com/typescript@1.8.9/lib/typescript.js"></script>
+        <script src="https://code.angularjs.org/2.0.0-beta.13/Rx.js"></script>
+        <script src="https://code.angularjs.org/2.0.0-beta.13/angular2.dev.js"></script>*@
 
 
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
     <script src="~/signalr/hubs"></script>
 
     @*<script>
-        System.config({
-            transpiler: 'typescript',
-            typescriptOptions: { emitDecoratorMetadata: true },
-            packages: { 'app': { defaultExtension: 'ts' } }
-        });
-        System.import('app/main')
-              .then(null, console.error.bind(console));
-    </script>*@
+            System.config({
+                transpiler: 'typescript',
+                typescriptOptions: { emitDecoratorMetadata: true },
+                packages: { 'app': { defaultExtension: 'ts' } }
+            });
+            System.import('app/main')
+                  .then(null, console.error.bind(console));
+        </script>*@
 
     <script>
 
         $(function () {
 
             var centralHub = $.connection.centralHub;
-            centralHub.client.onCommentStateChanged = function (userId, userComment, commentState) {
+            centralHub.client.onCommentStateChanged = function (appId, userId, userComment, commentState, commentId) {
 
+                var clientUserId = document.getElementById('userId').value;
+
+                var clientAppId = document.getElementById('appId').value;
+
+                if (clientAppId === appId && clientUserId === userId) {
+                    var comment = document.getElementById('commentId');
+
+
+
+                }
+
+                //var commentId = '',
+                //    commentState = '';
+
+                //var comment = document.getElementById(commentId);
+
+                //comment.parentNode.removeChild(comment);
+
+                //commentState.appendChild(comment);
             };
 
             $.connection.hub.start().done(function () {
@@ -62,7 +81,11 @@
 
                     var userId = document.getElementById('userId').value;
 
-                    centralHub.server.send(userId, comment, commentState);
+                    var appId = document.getElementById('appId').value;
+
+                    var commentId = textArea.id; //send to server
+
+                    centralHub.server.send(appId, userId, comment, commentState, commentId);
                 });
             });
 
@@ -89,8 +112,10 @@
             });
 
             $('#create').click(function (event) {
-                var b = Math.random();
-                var commentMarkup = '<textarea id="drag'+b+'" class="draggable" draggable="true" ondragstart="setData(event);" width="336" height="69"></textarea>';
+                var rand = Math.random();
+                var userId = document.getElementById('userId').value;
+                var commentId = userId + rand;
+                var commentMarkup = '<textarea id="' + commentId + '" class="draggable" draggable="true" ondragstart="setData(event);" width="336" height="69"></textarea>';
                 $('#start').append(commentMarkup);
             });
         });
@@ -130,6 +155,8 @@
     </tbody>
 </table>
 
-<input type="hidden" id="userId" value="3bce4931-6c75-41ab-afe0-2ec108a30860"/>
+<input type="hidden" id="userId" value="3bce4931-6c75-41ab-afe0-2ec108a30860" />
+
+<input type="hidden" id="appId" value="58182434-daf9-472f-abf6-10a59b0ccc78" />
 
 @*<my-comment></my-comment>*@

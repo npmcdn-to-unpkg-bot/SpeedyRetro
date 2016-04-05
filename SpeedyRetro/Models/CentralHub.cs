@@ -5,12 +5,12 @@ namespace SpeedyRetro.Models
 {
     public class CentralHub : Hub
     {
-        public void Send(Guid userId, string userComment, string commentState)
+        public void Send(Guid appId, Guid userId, string userComment, string commentState)
         {
             // Call the addNewMessageToPage method to update clients.
             //Clients.All.addNewMessageToPage(name, message);
 
-            Clients.All.onCommentStateChanged(userId, userComment, commentState);
+            Clients.All.onCommentStateChanged(appId, userId, userComment, commentState);
         }
     }
 

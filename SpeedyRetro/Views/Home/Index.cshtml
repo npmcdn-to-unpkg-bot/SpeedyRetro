@@ -16,55 +16,54 @@
     <!-- 1. Load libraries -->
     <!-- IE required polyfills, in this exact order -->
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js"></script>
-        <script src="https://npmcdn.com/angular2@2.0.0-beta.13/es6/dev/src/testing/shims_for_IE.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js"></script>
+    <script src="https://npmcdn.com/angular2@2.0.0-beta.13/es6/dev/src/testing/shims_for_IE.js"></script>
 
-        <script src="https://code.angularjs.org/2.0.0-beta.13/angular2-polyfills.js"></script>
-        <script src="https://code.angularjs.org/tools/system.js"></script>
-        <script src="https://npmcdn.com/typescript@1.8.9/lib/typescript.js"></script>
-        <script src="https://code.angularjs.org/2.0.0-beta.13/Rx.js"></script>
-        <script src="https://code.angularjs.org/2.0.0-beta.13/angular2.dev.js"></script>*@
+    <script src="https://code.angularjs.org/2.0.0-beta.13/angular2-polyfills.js"></script>
+    <script src="https://code.angularjs.org/tools/system.js"></script>
+    <script src="https://npmcdn.com/typescript@1.8.9/lib/typescript.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.13/Rx.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.13/angular2.dev.js"></script>*@
 
 
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
     <script src="~/signalr/hubs"></script>
 
     @*<script>
-            System.config({
-                transpiler: 'typescript',
-                typescriptOptions: { emitDecoratorMetadata: true },
-                packages: { 'app': { defaultExtension: 'ts' } }
-            });
-            System.import('app/main')
-                  .then(null, console.error.bind(console));
-        </script>*@
+        System.config({
+            transpiler: 'typescript',
+            typescriptOptions: { emitDecoratorMetadata: true },
+            packages: { 'app': { defaultExtension: 'ts' } }
+        });
+        System.import('app/main')
+              .then(null, console.error.bind(console));
+    </script>*@
 
     <script>
 
         $(function () {
-
             var centralHub = $.connection.centralHub;
+
             centralHub.client.onCommentStateChanged = function (appId, userId, userComment, commentState, commentId) {
 
                 var clientUserId = document.getElementById('userId').value;
 
                 var clientAppId = document.getElementById('appId').value;
 
-                if (clientAppId === appId && clientUserId === userId) {
-                    var comment = document.getElementById('commentId');
+                if (clientAppId === appId && clientUserId !== userId) {
 
+                    var comment = document.getElementById(commentId);
 
+                    if (comment) {
+
+                        var $td = $('td[data-commentState="' + commentState + '"]');
+
+                        $td.children('div').append(comment);
+
+                        console.log($td);
+                    }
 
                 }
-
-                //var commentId = '',
-                //    commentState = '';
-
-                //var comment = document.getElementById(commentId);
-
-                //comment.parentNode.removeChild(comment);
-
-                //commentState.appendChild(comment);
             };
 
             $.connection.hub.start().done(function () {
@@ -83,7 +82,7 @@
 
                     var appId = document.getElementById('appId').value;
 
-                    var commentId = textArea.id; //send to server
+                    var commentId = textArea.id;
 
                     centralHub.server.send(appId, userId, comment, commentState, commentId);
                 });
@@ -113,16 +112,21 @@
 
             $('#create').click(function (event) {
                 var rand = Math.random();
-                var userId = document.getElementById('userId').value;
-                var commentId = userId + rand;
+
+                var userId = document.getElementById('userId');
+
+                var commentId = userId + '_' + rand;
+
                 var commentMarkup = '<textarea id="' + commentId + '" class="draggable" draggable="true" ondragstart="setData(event);" width="336" height="69"></textarea>';
+
                 $('#start').append(commentMarkup);
             });
         });
 
         function setData(event) {
             var id = event.target.id;
-            event.dataTransfer.setData("plain/text", '{"id": "' + event.target.id + '"}');
+            var data = { "id": id };
+            event.dataTransfer.setData("plain/text", JSON.stringify(data));
         }
     </script>
 }
@@ -155,8 +159,8 @@
     </tbody>
 </table>
 
-<input type="hidden" id="userId" value="3bce4931-6c75-41ab-afe0-2ec108a30860" />
+<input type="hidden" id="userId" value="@Guid.NewGuid()" />
 
-<input type="hidden" id="appId" value="58182434-daf9-472f-abf6-10a59b0ccc78" />
+<input type="hidden" id="appId" value="5f31dc22-8b3c-41e4-8ea3-503ab675f2db"/>
 
 @*<my-comment></my-comment>*@

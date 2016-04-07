@@ -46,11 +46,11 @@
 
             centralHub.client.onCommentStateChanged = function (appId, userId, userComment, commentState, commentId) {
 
-                var clientUserId = document.getElementById('userId').value;
+                //var clientUserId = document.getElementById('userId').value;
 
-                var clientAppId = document.getElementById('appId').value;
+                //var clientAppId = document.getElementById('appId').value;
 
-                if (clientAppId === appId && clientUserId !== userId) {
+                //if (clientAppId === appId && clientUserId !== userId) {
 
                     var comment = document.getElementById(commentId);
 
@@ -63,7 +63,7 @@
                         console.log($td);
                     }
 
-                }
+                //}
             };
 
             $.connection.hub.start().done(function () {
@@ -84,9 +84,16 @@
 
                     var commentId = textArea.id;
 
-                    centralHub.server.send(appId, userId, comment, commentState, commentId);
+                    centralHub["userId"] = document.getElementById('userId').value;
+
+                    centralHub.server.send(appId, userId, comment, commentState, commentId)
+                    .fail(function (e) {
+                        console.log(e);
+                    });
                 });
+                centralHub.server.joinGroup(document.getElementById('appId').value);
             });
+
 
             $('.droppable').on('drop', function (event) {
                 var ev = event.originalEvent;

@@ -8,11 +8,11 @@ namespace SpeedyRetro.Models
 {
     public class CentralHub : Hub
     {
-        public void Send(Guid retroId, Guid userId, string userComment, string commentState, string commentId)
+        public void Send(Guid retroId, string userComment, string commentState, string commentId)
         {
             //var userId2 = Clients.Caller.userId;
 
-            Clients.OthersInGroup(retroId.ToString()).onCommentStateChanged(userId, userComment, commentState, commentId);
+            Clients.OthersInGroup(retroId.ToString()).onCommentStateChanged(userComment, commentState, commentId);
         }
 
         public Task JoinGroup(string groupName)

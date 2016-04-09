@@ -13,12 +13,18 @@ namespace SpeedyRetro.Controllers
             return View();
         }
 
-        public ActionResult Retrospective(Guid id)
+        public ActionResult Retrospective(string id)
         {
-            if (id == Guid.Empty)
+            Guid retroId;
+
+            if (string.IsNullOrWhiteSpace(id) || !Guid.TryParse(id, out retroId))
             {
                 return HttpNotFound();
             }
+
+            var userId = Guid.NewGuid();
+
+            //TODO will need to check if cookie exists first before setting it!
 
             var header = new Dictionary<string, object>();
             header.Add("alg", "HS256");
@@ -28,7 +34,7 @@ namespace SpeedyRetro.Controllers
             payload.Add("iss", "SpeedyRetro");
             payload.Add("exp", DateTime.UtcNow.AddYears(1).Second.ToString());
             payload.Add("sub", "UserManagement");
-            payload.Add("sr_id", Guid.NewGuid().ToString());
+            payload.Add("sr_uid", userId);
 
             var secret = "SpeedyRetro is great";
 
@@ -40,7 +46,13 @@ namespace SpeedyRetro.Controllers
 
             this.HttpContext.Response.AppendCookie(httpCookie);
 
-            return View("~/Views/Home/Retrospective.cshtml", id);
+            var view = new RetrospectiveViewModel
+            {
+                Id = retroId,
+                UserId = userId
+            };
+
+            return View("~/Views/Home/Retrospective.cshtml", view);
         }
 
         public ActionResult About()

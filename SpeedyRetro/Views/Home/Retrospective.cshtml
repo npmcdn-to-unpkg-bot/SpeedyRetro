@@ -1,4 +1,4 @@
-﻿@model Guid?
+﻿@model SpeedyRetro.Models.RetrospectiveViewModel
 
 @{
     ViewBag.Title = "Speedy Retro";
@@ -17,28 +17,38 @@
 @section scripts {
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
     <script src="~/signalr/hubs"></script>
-
     <script>
         $(function () {
 
-            var retros = window.sessionStorage.getItem('retros');
+            var retroId = '@Model.Id';
+
+            var retros = window.sessionStorage.getItem('sr_retros');
+
+            var userId = window.sessionStorage.getItem('sr_uid');
+
+            if (userId) {
+                // no need
+            } else {
+                // user needs to log in
+                window.sessionStorage.setItem('sr_uid', '@Model.UserId');
+            }
 
             if (retros && Array.isArray(retros)) {
-                if (retros.indexOf("@Model") < 0) {
-                    retros.push("@Model");
+                if (retros.indexOf(retroId) < 0) {
+                    retros.push(retroId);
                 }
 
             } else {
                 var retros = [];
 
-                retros.push("@Model");
+                retros.push(retroId);
 
-                window.sessionStorage.setItem("retros", retros);
+                window.sessionStorage.setItem('sr_retros', retros);
             }
 
             var centralHub = $.connection.centralHub;
 
-            centralHub.client.onCommentStateChanged = function (userId, userComment, commentState, commentId) {
+            centralHub.client.onCommentStateChanged = function (userComment, commentState, commentId) {
                     var comment = document.getElementById(commentId);
 
                     if (comment) {
@@ -63,13 +73,9 @@
 
                     var commentState = td.dataset.commentstate;
 
-                    var userId = document.getElementById('userId').value;
-
                     var commentId = textArea.id;
 
-                    //centralHub["userId"] = document.getElementById('userId').value;
-
-                    centralHub.server.send('@Model', userId, comment, commentState, commentId)
+                    centralHub.server.send(retroId, comment, commentState, commentId)
                     .fail(function (e) {
                         console.log(e);
                     });
@@ -80,7 +86,6 @@
                     centralHub.server.joinGroup(retroId);
 
                 });
-
             });
 
             $('.droppable').on('drop', function (event) {
@@ -107,8 +112,6 @@
 
             $('#create').click(function (event) {
                 var rand = Math.random();
-
-                var userId = document.getElementById('userId');
 
                 var commentId = userId + '_' + rand;
 
@@ -154,6 +157,6 @@
     </tbody>
 </table>
 
-<input type="hidden" id="userId" value="@Guid.NewGuid()" />
+@*<input type="hidden" id="userId" value="" />*@
 
 @*<input type="hidden" id="retroId" value="@Model" />*@

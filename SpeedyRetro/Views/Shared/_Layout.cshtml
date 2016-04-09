@@ -48,6 +48,11 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script>
+        if (!Modernizr.localstorage || !Modernizr.draganddrop) {
+            alert('please use another browser grandad!')
+        }
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Guid?
+
+@{
     ViewBag.Title = "Speedy Retro";
 }
 @section css{
@@ -13,38 +15,30 @@
 
 }
 @section scripts {
-    <!-- 1. Load libraries -->
-    <!-- IE required polyfills, in this exact order -->
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js"></script>
-    <script src="https://npmcdn.com/angular2@2.0.0-beta.13/es6/dev/src/testing/shims_for_IE.js"></script>
-
-    <script src="https://code.angularjs.org/2.0.0-beta.13/angular2-polyfills.js"></script>
-    <script src="https://code.angularjs.org/tools/system.js"></script>
-    <script src="https://npmcdn.com/typescript@1.8.9/lib/typescript.js"></script>
-    <script src="https://code.angularjs.org/2.0.0-beta.13/Rx.js"></script>
-    <script src="https://code.angularjs.org/2.0.0-beta.13/angular2.dev.js"></script>*@
-
-
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
     <script src="~/signalr/hubs"></script>
 
-    @*<script>
-        System.config({
-            transpiler: 'typescript',
-            typescriptOptions: { emitDecoratorMetadata: true },
-            packages: { 'app': { defaultExtension: 'ts' } }
-        });
-        System.import('app/main')
-              .then(null, console.error.bind(console));
-    </script>*@
-
     <script>
-
         $(function () {
+
+            var retros = window.sessionStorage.getItem('retros');
+
+            if (retros && Array.isArray(retros)) {
+                if (retros.indexOf("@Model") < 0) {
+                    retros.push("@Model");
+                }
+
+            } else {
+                var retros = [];
+
+                retros.push("@Model");
+
+                window.sessionStorage.setItem("retros", retros);
+            }
+
             var centralHub = $.connection.centralHub;
 
-            centralHub.client.onCommentStateChanged = function (appId, userId, userComment, commentState, commentId) {
+            centralHub.client.onCommentStateChanged = function (userId, userComment, commentState, commentId) {
                     var comment = document.getElementById(commentId);
 
                     if (comment) {
@@ -71,20 +65,23 @@
 
                     var userId = document.getElementById('userId').value;
 
-                    var appId = document.getElementById('appId').value;
-
                     var commentId = textArea.id;
 
-                    centralHub["userId"] = document.getElementById('userId').value;
+                    //centralHub["userId"] = document.getElementById('userId').value;
 
-                    centralHub.server.send(appId, userId, comment, commentState, commentId)
+                    centralHub.server.send('@Model', userId, comment, commentState, commentId)
                     .fail(function (e) {
                         console.log(e);
                     });
                 });
-                centralHub.server.joinGroup(document.getElementById('appId').value);
-            });
+                var array = [];
 
+                retros.forEach(function (retroId) {
+                    centralHub.server.joinGroup(retroId);
+
+                });
+
+            });
 
             $('.droppable').on('drop', function (event) {
                 var ev = event.originalEvent;
@@ -159,6 +156,4 @@
 
 <input type="hidden" id="userId" value="@Guid.NewGuid()" />
 
-<input type="hidden" id="appId" value="5f31dc22-8b3c-41e4-8ea3-503ab675f2db"/>
-
-@*<my-comment></my-comment>*@
+@*<input type="hidden" id="retroId" value="@Model" />*@

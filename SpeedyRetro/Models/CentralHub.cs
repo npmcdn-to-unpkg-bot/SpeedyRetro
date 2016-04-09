@@ -8,18 +8,11 @@ namespace SpeedyRetro.Models
 {
     public class CentralHub : Hub
     {
-        public void Send(Guid appId, Guid userId, string userComment, string commentState, string commentId)
+        public void Send(Guid retroId, Guid userId, string userComment, string commentState, string commentId)
         {
-            // Call the addNewMessageToPage method to update clients.
-            //Clients.All.addNewMessageToPage(name, message);
+            //var userId2 = Clients.Caller.userId;
 
-            var userId2 = Clients.Caller.userId;
-
-            Clients.OthersInGroup(appId.ToString()).onCommentStateChanged(appId, userId, userComment, commentState, commentId);
-
-            //Clients.Group(appId.ToString()).onCommentStateChanged(appId, userId, userComment, commentState, commentId);
-
-            //Clients.All.onCommentStateChanged(appId, userId, userComment, commentState, commentId);
+            Clients.OthersInGroup(retroId.ToString()).onCommentStateChanged(userId, userComment, commentState, commentId);
         }
 
         public Task JoinGroup(string groupName)

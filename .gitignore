@@ -79,6 +79,7 @@ build/
 *.log
 *.scc
 SpeedyRetro/*.log.txt
+SpeedyRetro/transports.log.txt
 
 # Visual C++ cache files
 ipch/

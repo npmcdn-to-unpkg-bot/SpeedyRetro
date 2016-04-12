@@ -1,0 +1,42 @@
+<!--<div>
+    <h2>My Heroes</h2>
+    <ul class="heroes">
+        <li *ngFor="#hero of heroes"
+            [class.selected]="hero === selectedHero"
+            (click)="onSelect(hero)">
+            <span class="badge">{{hero.id}}</span> {{hero.name}}
+        </li>
+    </ul>
+    <div *ngIf="selectedHero">
+        <h2>{{selectedHero.name | uppercase}} is my hero</h2>
+        <button (click)="gotoDetail()">View Details</button>
+    </div>
+</div>-->
+<div>
+    <button id="create" (click)="addComment()">Create</button>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Good :)</th>
+                <th>Bad :(</th>
+                <th>Action Points </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">
+                    <div id="start">
+                        <textarea id="drag1" (dragstart)="onCommentDragStart($event)" class="draggable" draggable="true" width="336" height="69"></textarea>
+                    </div>
+                </th>
+                <td data-commentstate="good">
+                    <div class="droppable" (drop)="onCommentDropped($event)" (dragover)="onCommentDragOver($event)">
+                    </div>
+                </td>
+                <td data-commentstate="bad"><div class="droppable" (drop)="onCommentDropped($event)" (dragover)="onCommentDragOver($event)"></div></td>
+                <td data-commentstate="action"><div class="droppable" (drop)="onCommentDropped($event)" (dragover)="onCommentDragOver($event)"></div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

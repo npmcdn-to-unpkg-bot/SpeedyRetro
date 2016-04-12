@@ -26,15 +26,29 @@ namespace SpeedyRetro.Controllers
 
             //TODO will need to check if cookie exists first before setting it!
 
-            var header = new Dictionary<string, object>();
-            header.Add("alg", "HS256");
-            header.Add("typ", "JWT");
+            //var header = new Dictionary<string, object>();
+            //header.Add("alg", "HS256");
+            //header.Add("typ", "JWT");
 
-            var payload = new Dictionary<string, object>();
-            payload.Add("iss", "SpeedyRetro");
-            payload.Add("exp", DateTime.UtcNow.AddYears(1).Second.ToString());
-            payload.Add("sub", "UserManagement");
-            payload.Add("sr_uid", userId);
+            //var payload = new Dictionary<string, object>();
+            //payload.Add("iss", "SpeedyRetro");
+            //payload.Add("exp", DateTime.UtcNow.AddYears(1).Second.ToString());
+            //payload.Add("sub", "UserManagement");
+            //payload.Add("sr_uid", userId);
+
+            var header = new Dictionary<string, object>
+            {
+                ["alg"] = "HS256",
+                ["typ"] = "JWT"
+            };
+
+            var payload = new Dictionary<string, object>
+            {
+                ["iss"] = "SpeedyRetro",
+                ["exp"] = DateTime.UtcNow.AddYears(1).Second.ToString(),
+                ["sub"] = "UserManagement",
+                ["sr_uid"] = userId
+            };
 
             var secret = "SpeedyRetro is great";
 

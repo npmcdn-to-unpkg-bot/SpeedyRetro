@@ -18,6 +18,7 @@
     <AssemblyName>SpeedyRetro</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
+    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -27,7 +28,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/bff348a0-2ce2-440b-b2a9-251322ec1095/resourcegroups/SpeedyRetro/providers/microsoft.insights/components/SpeedyRetro</ApplicationInsightsResourceId>
-    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -228,6 +229,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\app.component.css" />
+    <Content Include="app\dashboard.component.css" />
+    <Content Include="app\dashboard.component.html" />
+    <Content Include="app\hero-detail.component.css" />
+    <Content Include="app\hero-detail.component.html" />
+    <Content Include="app\heroes.component.css" />
+    <Content Include="app\heroes.component.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -241,6 +249,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="package.json" />
     <None Include="Properties\PublishProfiles\SpeedyRetro.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -292,8 +301,20 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Home\Retrospective.cshtml" />
+    <Content Include="tsconfig.json" />
+    <Content Include="typings.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <TypeScriptCompile Include="app\app.component.ts" />
+    <TypeScriptCompile Include="app\dashboard.component.ts" />
+    <TypeScriptCompile Include="app\hero-detail.component.ts" />
+    <TypeScriptCompile Include="app\client-hub.service.ts" />
+    <TypeScriptCompile Include="app\hero.service.ts" />
+    <TypeScriptCompile Include="app\hero.ts" />
+    <TypeScriptCompile Include="app\heroes.component.ts" />
+    <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\mock-heroes.ts" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -312,6 +333,15 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <TypeScriptJSXEmit>Preserve</TypeScriptJSXEmit>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot>
+    </TypeScriptSourceRoot>
+    <TypeScriptTarget>ES6</TypeScriptTarget>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -336,6 +366,38 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+    <TypeScriptExperimentalDecorators>True</TypeScriptExperimentalDecorators>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+    <TypeScriptExperimentalDecorators>True</TypeScriptExperimentalDecorators>
+  </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>

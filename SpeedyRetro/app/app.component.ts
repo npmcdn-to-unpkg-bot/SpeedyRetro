@@ -7,21 +7,13 @@ import {Retro} from './board/retro';
 
 @Component({
     selector: 'my-app',
-    template: `
-    <h1>Create a Retro!</h1>
-    <nav>
-      <input type="text" name="txt_retroname" placeholder="retro"/>
-      <input type="text" name="txt_username" placeholder="username"/>
-      <a (click)="createRetro()">create</a>
-    </nav>
-    <router-outlet></router-outlet>
-  `,
-    styleUrls: ['app/app.component.css'],
+    templateUrl: 'app/_start/html/app.component.html',
+    styleUrls: ['app/_start/css/app.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [ClientHubService]
 })
 @RouteConfig([
-        { path: '/retro/:id', name: 'Retros', component: BoardComponent }
+    { path: '/retro/:id', name: 'Retros', component: BoardComponent }
 ])
 export class AppComponent {
     error: string;

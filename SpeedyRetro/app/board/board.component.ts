@@ -31,6 +31,10 @@ export class BoardComponent implements OnInit {
 
         var commentMarkup = '<textarea id="' + commentId + '" class="draggable" draggable="true" ondragstart="setData(event);" width="336" height="69"></textarea>';
 
+        //var commentComment = new CommentComponent();
+
+        
+
         //$('#start').append(commentMarkup);
     }
 

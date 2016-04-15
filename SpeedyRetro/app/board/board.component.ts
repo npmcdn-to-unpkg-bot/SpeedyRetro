@@ -1,37 +1,25 @@
 import {Component, OnInit} from 'angular2/core';
 import {Router} from 'angular2/router';
-import {HeroService} from './hero.service';
-import {HeroDetailComponent} from './hero-detail.component';
-import {Hero} from './hero';
+import {RouteParams} from 'angular2/router';
+import {CommentComponent} from '../comment/comment.component';
 
 @Component({
-    selector: 'my-heroes',
-    templateUrl: 'app/heroes.component.html',
-    styleUrls: ['app/heroes.component.css'],
-    directives: [HeroDetailComponent]
+    selector: 'my-board',
+    templateUrl: 'app/board/html/board.component.html',
+    styleUrls: ['app/board/css/board.component.css'],
+    directives: [CommentComponent]
 })
-export class HeroesComponent implements OnInit {
-    //heroes: Hero[];
-    //selectedHero: Hero;
+export class BoardComponent implements OnInit {
+    lanes = [{ 'name': 'Good :)', 'state': 'good' }, { 'name': 'Bad :(', 'state': 'bad' }, { 'name': 'Action Points !', 'state': 'action' }];
 
-    //constructor(private _heroService: HeroService, private _router: Router) { }
-
-    //getHeroes() {
-    //  this._heroService.getHeroes().then(heroes => this.heroes = heroes);
-    //}
-
-    //gotoDetail() {
-    //  this._router.navigate(['HeroDetail', { id: this.selectedHero.id }]);
-    //}
-
-    //ngOnInit() {
-    //  this.getHeroes();
-    //}
-
-    //onSelect(hero: Hero) { this.selectedHero = hero; }
+    constructor(private _routeParams: RouteParams) {}
 
     ngOnInit() {
-        //call service
+        let id = this._routeParams.get('id');
+
+        //store app id somewhere
+
+        console.log('Hello ID: ' + id);
     }
 
     addComment() {
@@ -47,7 +35,6 @@ export class HeroesComponent implements OnInit {
     }
 
     onCommentDropped(event) {
-        //var ev = event.originalEvent;
         var ev = event;
 
         ev.preventDefault();
@@ -60,14 +47,12 @@ export class HeroesComponent implements OnInit {
     }
 
     onCommentDragStart(event) {
-        //var ev = event.originalEvent;
         var id = event.target.id;
         var data = { "id": id };
         event.dataTransfer.setData("plain/text", JSON.stringify(data));
     }
 
     onCommentDragOver(event) {
-        //var ev = event.originalEvent;
         var ev = event;
         ev.preventDefault();
     }

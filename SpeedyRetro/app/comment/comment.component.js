@@ -1,4 +1,4 @@
-System.register(['angular2/core', './mock-heroes'], function(exports_1, context_1) {
+System.register(['angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,34 +10,35 @@ System.register(['angular2/core', './mock-heroes'], function(exports_1, context_
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, mock_heroes_1;
-    var HeroService;
+    var core_1;
+    var CommentComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (mock_heroes_1_1) {
-                mock_heroes_1 = mock_heroes_1_1;
             }],
         execute: function() {
-            HeroService = (function () {
-                function HeroService() {
+            CommentComponent = (function () {
+                function CommentComponent() {
+                    this.comment = { 'id': 'someGUID' };
                 }
-                HeroService.prototype.getHeroes = function () {
-                    return Promise.resolve(mock_heroes_1.HEROES);
+                CommentComponent.prototype.onCommentDragStart = function (event) {
+                    var id = event.target.id;
+                    var data = { "id": id };
+                    event.dataTransfer.setData("plain/text", JSON.stringify(data));
                 };
-                HeroService.prototype.getHero = function (id) {
-                    return Promise.resolve(mock_heroes_1.HEROES).then(function (heroes) { return heroes.filter(function (hero) { return hero.id === id; })[0]; });
-                };
-                HeroService = __decorate([
-                    core_1.Injectable(), 
+                CommentComponent = __decorate([
+                    core_1.Component({
+                        selector: 'my-comment',
+                        templateUrl: 'app/comment/html/comment.component.html',
+                        styleUrls: ['app/comment/css/comment.component.css'],
+                    }), 
                     __metadata('design:paramtypes', [])
-                ], HeroService);
-                return HeroService;
+                ], CommentComponent);
+                return CommentComponent;
             }());
-            exports_1("HeroService", HeroService);
+            exports_1("CommentComponent", CommentComponent);
         }
     }
 });
-//# sourceMappingURL=hero.service.js.map
+//# sourceMappingURL=comment.component.js.map

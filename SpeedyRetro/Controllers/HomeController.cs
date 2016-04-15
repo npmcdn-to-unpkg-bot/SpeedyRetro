@@ -19,7 +19,7 @@ namespace SpeedyRetro.Controllers
 
             if (string.IsNullOrWhiteSpace(id) || !Guid.TryParse(id, out retroId))
             {
-                return HttpNotFound();
+                retroId = Guid.NewGuid();
             }
 
             var userId = Guid.NewGuid();
@@ -67,6 +67,11 @@ namespace SpeedyRetro.Controllers
             };
 
             return View("~/Views/Home/Retrospective.cshtml", view);
+        }
+
+        public JsonResult AddRetro()
+        {
+            return Json(new { id = Guid.NewGuid() }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult About()

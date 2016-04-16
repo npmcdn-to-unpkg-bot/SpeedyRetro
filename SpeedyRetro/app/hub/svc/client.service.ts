@@ -1,7 +1,8 @@
 import {Injectable}     from 'angular2/core';
 import {Http, Response, Headers, RequestOptions} from 'angular2/http';
-import {Retro}           from './retro/retro';
 import {Observable}     from 'rxjs/Observable';
+
+import {Retro}           from '../entities/retro';
 
 @Injectable()
 export class ClientHubService {
@@ -21,7 +22,6 @@ export class ClientHubService {
         return body || {};
     }
     private handleError(error: any) {
-        // In a real world app, we might send the error to remote logging infrastructure
         let errMsg = error.message || 'Server error';
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);

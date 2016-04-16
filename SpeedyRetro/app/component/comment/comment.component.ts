@@ -1,12 +1,12 @@
 import {Component} from 'angular2/core';
 
 @Component({
-    selector: 'my-comment',
-    templateUrl: 'app/comment/html/comment.component.html',
-    styleUrls: ['app/comment/css/comment.component.css'],
+    selector: 'sr-comment',
+    templateUrl: 'app/component/comment/html/comment.component.html',
+    styleUrls: ['app/component/comment/css/comment.component.css'],
 })
 export class CommentComponent {
-    comment = { 'id': 'someGUID'};
+    comment = { 'id': Math.random()};
 
     onCommentDragStart(event) {
         var id = event.target.id;

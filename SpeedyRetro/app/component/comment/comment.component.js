@@ -20,6 +20,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         execute: function() {
             CommentComponent = (function () {
                 function CommentComponent() {
+                    this.rand = Math.random();
                     this.comment = { 'id': 'someGUID' };
                 }
                 CommentComponent.prototype.onCommentDragStart = function (event) {
@@ -29,7 +30,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 };
                 CommentComponent = __decorate([
                     core_1.Component({
-                        selector: 'my-comment',
+                        selector: 'sr-comment',
                         templateUrl: 'app/comment/html/comment.component.html',
                         styleUrls: ['app/comment/css/comment.component.css'],
                     }), 

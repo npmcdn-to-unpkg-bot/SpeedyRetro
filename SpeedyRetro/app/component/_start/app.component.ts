@@ -1,14 +1,14 @@
 import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
-import {BoardComponent} from './board/board.component';
-import {ClientHubService} from './client-hub.service';
-import {Router} from 'angular2/router';
-import {Retro} from './board/retro';
+import {Router, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+
+import {BoardComponent} from '../../component/board/board.component';
+import {ClientHubService} from '../../hub/svc/client.service';
+import {Retro} from '../../hub/entities/retro';
 
 @Component({
     selector: 'my-app',
-    templateUrl: 'app/_start/html/app.component.html',
-    styleUrls: ['app/_start/css/app.component.css'],
+    templateUrl: 'app/component/_start/html/app.component.html',
+    styleUrls: ['app/component/_start/css/app.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [ClientHubService]
 })
@@ -18,7 +18,7 @@ import {Retro} from './board/retro';
 export class AppComponent {
     error: string;
     retro: Retro;
-    retroExist: boolean = false;
+    retroExist: boolean = true;
 
     constructor(private _clientHub: ClientHubService, private _router: Router) {
         //check for app Id in local storage

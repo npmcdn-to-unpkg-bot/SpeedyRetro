@@ -1,13 +1,13 @@
-import {Component, OnInit, DynamicComponentLoader, ViewEncapsulation, ElementRef} from 'angular2/core';
-import {Router} from 'angular2/router';
-import {RouteParams} from 'angular2/router';
-import {CommentComponent} from '../comment/comment.component';
+import {Component, OnInit, DynamicComponentLoader, ElementRef} from 'angular2/core';
+import {Router, RouteParams} from 'angular2/router';
 import {Subject, Observer} from 'rxjs/Rx';
 
+import {CommentComponent} from '../comment/comment.component';
+
 @Component({
-    selector: 'my-board',
-    templateUrl: 'app/board/html/board.component.html',
-    styleUrls: ['app/board/css/board.component.css'],
+    selector: 'sr-board',
+    templateUrl: 'app/component/board/html/board.component.html',
+    styleUrls: ['app/component/board/css/board.component.css'],
     directives: [CommentComponent]
 })
 export class BoardComponent implements OnInit {
@@ -18,9 +18,7 @@ export class BoardComponent implements OnInit {
 
     constructor(private _routeParams: RouteParams,
         private _dynamicComponentLoader: DynamicComponentLoader,
-        private _elementRef: ElementRef) {
-
-    }
+        private _elementRef: ElementRef) {}
     
     ngOnInit() {
         let id = this._routeParams.get('id');
@@ -33,16 +31,6 @@ export class BoardComponent implements OnInit {
     }
 
     addComment() {
-        //var rand = Math.random();
-
-        //var userId = 'chicken';
-
-        //var commentId = userId + '_' + rand;
-
-        //var commentMarkup = '<textarea id="' + commentId + '" class="draggable" draggable="true" ondragstart="setData(event);" width="336" height="69"></textarea>';
-
-        //$('#start').append(commentMarkup);
-
         this.renderComment();
     }
 

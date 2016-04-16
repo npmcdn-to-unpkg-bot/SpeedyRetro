@@ -229,18 +229,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\_start\css\app.component.css" />
-    <Content Include="app\board\css\board.component.css" />
-    <Content Include="app\comment\css\comment.component.css" />
-    <Content Include="app\comment\html\comment.component.html" />
-    <Content Include="app\dashboard.component.css" />
-    <Content Include="app\dashboard.component.html" />
-    <Content Include="app\hero-detail.component.css" />
-    <Content Include="app\hero-detail.component.html" />
-    <Content Include="app\heroes.component.css" />
-    <Content Include="app\heroes.component.html" />
-    <Content Include="app\board\html\board.component.html" />
-    <Content Include="app\_start\html\app.component.html" />
+    <Content Include="app\component\_start\css\app.component.css" />
+    <Content Include="app\component\board\css\board.component.css" />
+    <Content Include="app\component\comment\css\comment.component.css" />
+    <Content Include="app\component\comment\html\comment.component.html" />
+    <Content Include="app\component\board\html\board.component.html" />
+    <Content Include="app\component\_start\html\app.component.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -310,18 +304,12 @@
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\app.component.ts" />
-    <TypeScriptCompile Include="app\comment\comment.component.ts" />
-    <TypeScriptCompile Include="app\dashboard.component.ts" />
-    <TypeScriptCompile Include="app\board\retro.ts" />
-    <TypeScriptCompile Include="app\hero-detail.component.ts" />
-    <TypeScriptCompile Include="app\client-hub.service.ts" />
-    <TypeScriptCompile Include="app\hero.service.ts" />
-    <TypeScriptCompile Include="app\hero.ts" />
-    <TypeScriptCompile Include="app\board\board.component.ts" />
-    <TypeScriptCompile Include="app\heroes.component.ts" />
+    <TypeScriptCompile Include="app\component\_start\app.component.ts" />
+    <TypeScriptCompile Include="app\component\comment\comment.component.ts" />
+    <TypeScriptCompile Include="app\hub\entities\retro.ts" />
+    <TypeScriptCompile Include="app\hub\svc\client.service.ts" />
+    <TypeScriptCompile Include="app\component\board\board.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
-    <TypeScriptCompile Include="app\mock-heroes.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

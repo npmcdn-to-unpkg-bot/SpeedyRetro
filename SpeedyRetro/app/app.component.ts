@@ -18,6 +18,7 @@ import {Retro} from './board/retro';
 export class AppComponent {
     error: string;
     retro: Retro;
+    retroExist: boolean = false;
 
     constructor(private _clientHub: ClientHubService, private _router: Router) {
         //check for app Id in local storage

@@ -12,8 +12,7 @@
         <tbody>
             <tr>
                 <th scope="row">
-                    <div id="start">
-                        <my-comment></my-comment>
+                    <div id="start" #comment>
                     </div>
                 </th>
                 <td *ngFor="#lane of lanes" [attr.data-commentstate]="lane.name">

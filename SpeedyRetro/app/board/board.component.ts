@@ -1,7 +1,8 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, DynamicComponentLoader, ViewEncapsulation, ElementRef} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {RouteParams} from 'angular2/router';
 import {CommentComponent} from '../comment/comment.component';
+import {Subject, Observer} from 'rxjs/Rx';
 
 @Component({
     selector: 'my-board',
@@ -10,32 +11,44 @@ import {CommentComponent} from '../comment/comment.component';
     directives: [CommentComponent]
 })
 export class BoardComponent implements OnInit {
-    lanes = [{ 'name': 'Good :)', 'state': 'good' }, { 'name': 'Bad :(', 'state': 'bad' }, { 'name': 'Action Points !', 'state': 'action' }];
+    lanes = [{ 'name': 'Good :)', 'state': 'good' },
+        { 'name': 'Bad :(', 'state': 'bad' },
+        { 'name': 'Action Points !', 'state': 'action' }];
+    subject: Subject<any> = new Subject();
 
-    constructor(private _routeParams: RouteParams) {}
+    constructor(private _routeParams: RouteParams,
+        private _dynamicComponentLoader: DynamicComponentLoader,
+        private _elementRef: ElementRef) {
 
+    }
+    
     ngOnInit() {
         let id = this._routeParams.get('id');
 
         //store app id somewhere
-
+        
         console.log('Hello ID: ' + id);
+
+        this.renderComment();
     }
 
     addComment() {
-        var rand = Math.random();
+        //var rand = Math.random();
 
-        var userId = 'chicken';
+        //var userId = 'chicken';
 
-        var commentId = userId + '_' + rand;
+        //var commentId = userId + '_' + rand;
 
-        var commentMarkup = '<textarea id="' + commentId + '" class="draggable" draggable="true" ondragstart="setData(event);" width="336" height="69"></textarea>';
-
-        //var commentComment = new CommentComponent();
-
-        
+        //var commentMarkup = '<textarea id="' + commentId + '" class="draggable" draggable="true" ondragstart="setData(event);" width="336" height="69"></textarea>';
 
         //$('#start').append(commentMarkup);
+
+        this.renderComment();
+    }
+
+    private renderComment() {
+        this._dynamicComponentLoader.loadIntoLocation(CommentComponent, this._elementRef, 'comment')
+            .then(compRef => this.subject.subscribe(compRef.instance));
     }
 
     onCommentDropped(event) {

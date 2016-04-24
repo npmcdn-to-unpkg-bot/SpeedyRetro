@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {Router, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {BoardComponent} from '../../component/board/board.component';
@@ -18,9 +18,10 @@ import {Retro} from '../../hub/entities/retro';
 export class AppComponent {
     error: string;
     retro: Retro;
-    retroExist: boolean = true;
+    retroExist: boolean = false;
 
-    constructor(private _clientHub: ClientHubService, private _router: Router) {
+    constructor(private _clientHub: ClientHubService,
+        private _router: Router) {
         //check for app Id in local storage
     }
 

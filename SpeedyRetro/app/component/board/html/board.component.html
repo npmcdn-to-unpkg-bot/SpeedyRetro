@@ -15,7 +15,7 @@
                     <div id="start" #comment>
                     </div>
                 </th>
-                <td *ngFor="#lane of lanes" [attr.data-commentstate]="lane.name">
+                <td *ngFor="#lane of lanes" [attr.data-commentstate]="lane.state">
                     <div class="droppable" (drop)="onCommentDropped($event)" (dragover)="onCommentDragOver($event)">
                     </div>
                 </td>

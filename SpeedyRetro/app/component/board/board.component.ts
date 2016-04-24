@@ -34,31 +34,25 @@ export class BoardComponent implements OnInit {
         this.renderComment();
     }
 
-    private renderComment() {
-        this._dynamicComponentLoader.loadIntoLocation(CommentComponent, this._elementRef, 'comment')
-            .then(compRef => this.subject.subscribe(compRef.instance));
-    }
-
     onCommentDropped(event) {
         var ev = event;
 
         ev.preventDefault();
 
-        var data = ev.dataTransfer.getData("plain/text");
+        var data = ev.dataTransfer.getData('plain/text');
 
         var obj = JSON.parse(data);
 
         ev.target.appendChild(document.getElementById(obj.id));
     }
 
-    onCommentDragStart(event) {
-        var id = event.target.id;
-        var data = { "id": id };
-        event.dataTransfer.setData("plain/text", JSON.stringify(data));
-    }
-
     onCommentDragOver(event) {
         var ev = event;
         ev.preventDefault();
+    }
+
+    private renderComment() {
+        this._dynamicComponentLoader.loadIntoLocation(CommentComponent, this._elementRef, 'comment')
+            .then(compRef => this.subject.subscribe(compRef.instance));
     }
 }

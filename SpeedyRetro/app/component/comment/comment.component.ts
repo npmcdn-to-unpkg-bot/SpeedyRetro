@@ -10,7 +10,7 @@ export class CommentComponent {
 
     onCommentDragStart(event) {
         var id = event.target.id;
-        var data = { "id": id };
-        event.dataTransfer.setData("plain/text", JSON.stringify(data));
+        var data = { 'id': id };
+        event.dataTransfer.setData('plain/text', JSON.stringify(data));
     }
 }

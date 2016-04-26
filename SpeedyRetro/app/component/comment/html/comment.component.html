@@ -1,1 +1,1 @@
-<textarea id="{{comment.id}}" (dragstart)="onCommentDragStart($event)" class="draggable" draggable="true" width="336" height="69"></textarea>
+<textarea id="{{comment.id}}" (dragstart)="onDragStart($event)" (dragend)="onDragEnd($event)" class="draggable" draggable="true" width="336" height="69"></textarea>

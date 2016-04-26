@@ -1,24 +1,30 @@
-System.register(['angular2/http', 'angular2/platform/browser', 'angular2/router', './component/_start/app.component', 'rxjs/Rx'], function(exports_1, context_1) {
+System.register(['angular2/http', 'angular2/router', 'angular2/platform/browser', 'rxjs/Rx', './component/_start/app.component', './hub/svc/retro.service', './hub/svc/centralHub.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var http_1, browser_1, router_1, app_component_1;
+    var http_1, router_1, browser_1, app_component_1, retro_service_1, centralHub_service_1;
     return {
         setters:[
             function (http_1_1) {
                 http_1 = http_1_1;
             },
-            function (browser_1_1) {
-                browser_1 = browser_1_1;
-            },
             function (router_1_1) {
                 router_1 = router_1_1;
             },
+            function (browser_1_1) {
+                browser_1 = browser_1_1;
+            },
+            function (_1) {},
             function (app_component_1_1) {
                 app_component_1 = app_component_1_1;
             },
-            function (_1) {}],
+            function (retro_service_1_1) {
+                retro_service_1 = retro_service_1_1;
+            },
+            function (centralHub_service_1_1) {
+                centralHub_service_1 = centralHub_service_1_1;
+            }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent, [router_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS]);
+            browser_1.bootstrap(app_component_1.AppComponent, [router_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS, retro_service_1.RetroService, centralHub_service_1.CentralHubService]);
         }
     }
 });

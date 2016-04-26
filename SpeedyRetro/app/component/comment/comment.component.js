@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../hub/svc/comment.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,31 +10,44 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, comment_service_1;
     var CommentComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (comment_service_1_1) {
+                comment_service_1 = comment_service_1_1;
             }],
         execute: function() {
             CommentComponent = (function () {
-                function CommentComponent() {
-                    this.rand = Math.random();
-                    this.comment = { 'id': 'someGUID' };
+                function CommentComponent(_commentService) {
+                    this._commentService = _commentService;
+                    this.comment = { 'id': Math.random() };
                 }
-                CommentComponent.prototype.onCommentDragStart = function (event) {
+                CommentComponent.prototype.onDragStart = function (event) {
                     var id = event.target.id;
-                    var data = { "id": id };
-                    event.dataTransfer.setData("plain/text", JSON.stringify(data));
+                    var data = { 'id': id };
+                    event.dataTransfer.setData('plain/text', JSON.stringify(data));
+                };
+                CommentComponent.prototype.onDragEnd = function (event) {
+                    var textArea = event.target;
+                    var td = textArea.parentNode.parentNode;
+                    var message = textArea.innerText;
+                    var commentState = td.dataset.commentstate;
+                    var commentId = textArea.id;
+                    var comment = { 'retroId': '35e45f1e-aca6-42f8-92ba-124290d13b3c', 'message': message, 'state': commentState, id: commentId };
+                    this._commentService.update(comment);
                 };
                 CommentComponent = __decorate([
                     core_1.Component({
                         selector: 'sr-comment',
-                        templateUrl: 'app/comment/html/comment.component.html',
-                        styleUrls: ['app/comment/css/comment.component.css'],
+                        templateUrl: 'app/component/comment/html/comment.component.html',
+                        styleUrls: ['app/component/comment/css/comment.component.css'],
+                        providers: [comment_service_1.CommentService]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [comment_service_1.CommentService])
                 ], CommentComponent);
                 return CommentComponent;
             }());

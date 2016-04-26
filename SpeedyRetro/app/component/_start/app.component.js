@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../component/board/board.component', '../../hub/svc/client.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../../component/board/board.component', '../../hub/svc/retro.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../../component/board/boar
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, router_2, board_component_1, client_service_1;
+    var core_1, router_1, board_component_1, retro_service_1;
     var AppComponent;
     return {
         setters:[
@@ -19,41 +19,40 @@ System.register(['angular2/core', 'angular2/router', '../../component/board/boar
             },
             function (router_1_1) {
                 router_1 = router_1_1;
-                router_2 = router_1_1;
             },
             function (board_component_1_1) {
                 board_component_1 = board_component_1_1;
             },
-            function (client_service_1_1) {
-                client_service_1 = client_service_1_1;
+            function (retro_service_1_1) {
+                retro_service_1 = retro_service_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent(_clientHub, _router) {
-                    this._clientHub = _clientHub;
+                function AppComponent(_retroService, _router) {
+                    this._retroService = _retroService;
                     this._router = _router;
-                    this.retroExist = true;
+                    this.retroExist = false;
                     //check for app Id in local storage
                 }
                 AppComponent.prototype.createRetro = function () {
                     var _this = this;
                     //first call returns after id is required
-                    this._clientHub.addRetro()
+                    this._retroService.add()
                         .subscribe(function (retro) { return _this.retro = retro; }, function (error) { return _this.error = error; });
                     this._router.navigate(['Retros', { id: this.retro.id }]);
                 };
                 AppComponent = __decorate([
                     core_1.Component({
-                        selector: 'sr-app',
-                        templateUrl: 'app/_start/html/app.component.html',
-                        styleUrls: ['app/_start/css/app.component.css'],
+                        selector: 'my-app',
+                        templateUrl: 'app/component/_start/html/app.component.html',
+                        styleUrls: ['app/component/_start/css/app.component.css'],
                         directives: [router_1.ROUTER_DIRECTIVES],
-                        providers: [client_service_1.ClientHubService]
+                        providers: [retro_service_1.RetroService]
                     }),
                     router_1.RouteConfig([
                         { path: '/retro/:id', name: 'Retros', component: board_component_1.BoardComponent }
                     ]), 
-                    __metadata('design:paramtypes', [client_service_1.ClientHubService, router_2.Router])
+                    __metadata('design:paramtypes', [retro_service_1.RetroService, router_1.Router])
                 ], AppComponent);
                 return AppComponent;
             }());

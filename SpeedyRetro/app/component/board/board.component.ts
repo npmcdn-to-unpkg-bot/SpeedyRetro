@@ -18,15 +18,12 @@ export class BoardComponent implements OnInit {
 
     constructor(private _routeParams: RouteParams,
         private _dynamicComponentLoader: DynamicComponentLoader,
-        private _elementRef: ElementRef) {}
+        private _elementRef: ElementRef) { }
     
     ngOnInit() {
         let id = this._routeParams.get('id');
 
         //store app id somewhere
-        
-        console.log('Hello ID: ' + id);
-
         this.renderComment();
     }
 

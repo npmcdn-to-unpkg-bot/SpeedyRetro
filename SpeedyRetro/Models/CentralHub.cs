@@ -13,6 +13,7 @@ namespace SpeedyRetro.Models
             //var userId2 = Clients.Caller.userId;
 
             Clients.OthersInGroup(retroId.ToString()).onCommentStateChanged(userComment, commentState, commentId);
+            //Clients.All.onCommentStateChanged(userComment, commentState, commentId);
         }
 
         public Task JoinGroup(string groupName)

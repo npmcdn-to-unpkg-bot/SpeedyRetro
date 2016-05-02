@@ -5,7 +5,6 @@ import {CommentService} from '../../hub/svc/comment.service';
     selector: 'sr-comment',
     templateUrl: 'app/component/comment/html/comment.component.html',
     styleUrls: ['app/component/comment/css/comment.component.css']
-    //providers: [CommentService]
 })
 export class CommentComponent {
     comment = { 'id': Math.random()};
@@ -15,7 +14,9 @@ export class CommentComponent {
 
     onDragStart(event) {
         var id = event.target.id;
+
         var data = { 'id': id };
+
         event.dataTransfer.setData('plain/text', JSON.stringify(data));
     }
 

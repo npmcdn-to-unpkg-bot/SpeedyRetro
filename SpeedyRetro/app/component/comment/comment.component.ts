@@ -7,9 +7,13 @@ import {CommentService} from '../../hub/svc/comment.service';
     styleUrls: ['app/component/comment/css/comment.component.css']
 })
 export class CommentComponent {
-    comment = { 'id': Math.random()};
+    comment = { 'id': Math.random(), 'userId': 'blah'};
 
     constructor(private _commentService: CommentService) {
+    }
+
+    onChange(event) {
+        this.update(event);
     }
 
     onDragStart(event) {
@@ -21,17 +25,21 @@ export class CommentComponent {
     }
 
     onDragEnd(event) {
+        this.update(event);
+    }
+
+    private update(event) {
         var textArea = event.target;
 
         var td = textArea.parentNode.parentNode;
 
-        var message = textArea.innerText;
+        var message = textArea.value;
 
         var commentState = td.dataset.commentstate;
 
         var commentId = textArea.id;
 
-        var comment = { 'retroId': '35e45f1e-aca6-42f8-92ba-124290d13b3c', 'message': message, 'state': commentState, id: commentId };
+        var comment = { 'retroId': '35e45f1e-aca6-42f8-92ba-124290d13b3c', 'message': message, 'state': commentState, 'id': commentId };
 
         this._commentService.update(comment);
     }

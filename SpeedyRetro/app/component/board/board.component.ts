@@ -21,9 +21,22 @@ export class BoardComponent implements OnInit {
         private _elementRef: ElementRef) { }
     
     ngOnInit() {
-        let id = this._routeParams.get('id');
+        let retroId = this._routeParams.get('id');
+        if (retroId) {
+            var retros = window.sessionStorage.getItem('sr_retros');
+            if (retros && Array.isArray(retros) && retros.indexOf(retroId) < 0) {
+                 retros.push(retroId);
+            } else {
+                retros = [];
 
-        //store app id somewhere
+                retros.push(retroId);
+
+                window.sessionStorage.setItem('sr_retros', retros);
+            }
+        }
+        else {
+            //render create retro form
+        }
         this.renderComment();
     }
 

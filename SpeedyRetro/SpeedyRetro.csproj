@@ -229,6 +229,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\component\user\css\user.component.css" />
+    <Content Include="app\component\user\html\user.component.html" />
     <Content Include="app\component\_start\css\app.component.css" />
     <Content Include="app\component\board\css\board.component.css" />
     <Content Include="app\component\comment\css\comment.component.css" />
@@ -304,6 +306,7 @@
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\component\user\user.component.ts" />
     <TypeScriptCompile Include="app\component\_start\app.component.ts" />
     <TypeScriptCompile Include="app\component\comment\comment.component.ts" />
     <TypeScriptCompile Include="app\hub\entities\comment.ts" />

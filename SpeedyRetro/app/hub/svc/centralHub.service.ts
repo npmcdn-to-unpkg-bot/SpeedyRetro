@@ -28,24 +28,35 @@ export class CentralHubService {
 
         this.centralHub.on('onCommentStateChanged', function (userComment, commentState, commentId) {
             var comment = document.getElementById(commentId);
+            console.log('Comment: ' + userComment);
 
-            console.log(comment);
+            if (!comment) {
+                comment = document.createElement('textarea');
+            }
 
-            if (comment) {
+            comment.id = commentId;
 
-                //var $td = jQuery('td[data-commentState="' + commentState + '"]');
+            comment.innerText = userComment;
 
-                //$td.children('div').append(comment);
+            comment.setAttribute('readonly', 'true');
 
-                //console.log($td);
-            };
+            var $td = jQuery('td[data-commentState="' + commentState + '"]');
+
+            $td.children('div').append(comment);
         });
 
         this.centralHubConnection.start().done(function () {
-            centralHub.invoke("JoinGroup", '35e45f1e-aca6-42f8-92ba-124290d13b3c')
-                .fail(function (error) {
-                    console.log(error);
+            //centralHub.invoke("JoinGroup", '35e45f1e-aca6-42f8-92ba-124290d13b3c')
+            //    .fail(function (error) {
+            //        console.log(error);
+            //    });
+            var retros = window.sessionStorage.getItem('sr_retros');
+
+            if (retros && Array.isArray(retros)) {
+                retros.forEach(function (retroId) {
+                    centralHub.invoke("JoinGroup", retroId);
                 });
+            }
         })
         .fail(function (error) {
             console.log(error);

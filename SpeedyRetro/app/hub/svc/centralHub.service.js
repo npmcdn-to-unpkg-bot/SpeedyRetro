@@ -22,19 +22,38 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             /// <reference path="../../../typings/signalr/signalr.d.ts" />
             CentralHubService = (function () {
                 function CentralHubService() {
+                    this.startConnection();
                 }
                 CentralHubService.prototype.startConnection = function () {
-                    this.centralHubConnection = this.jQuery.hubConnection();
+                    this.centralHubConnection = jQuery.hubConnection();
                     this.centralHubConnection.error(function (error) {
                         console.log('signalR error: ' + error);
                     });
                     this.centralHubConnection.logging = true;
-                    this.centralHub = this.centralHubConnection.createHubProxy('CentralHub');
+                    var centralHub = this.centralHub = this.centralHubConnection.createHubProxy('CentralHub');
+                    this.centralHub.on('onCommentStateChanged', function (userComment, commentState, commentId) {
+                        var comment = document.getElementById(commentId);
+                        console.log('Comment: ' + userComment);
+                        if (!comment) {
+                            comment = document.createElement('textarea');
+                        }
+                        comment.id = commentId;
+                        comment.innerText = userComment;
+                        comment.setAttribute('readonly', 'true');
+                        var $td = jQuery('td[data-commentState="' + commentState + '"]');
+                        $td.children('div').append(comment);
+                    });
                     this.centralHubConnection.start().done(function () {
-                        this.centralHub.invoke("JoinGroup", "New Group")
-                            .fail(function (error) {
-                            console.log(error);
-                        });
+                        //centralHub.invoke("JoinGroup", '35e45f1e-aca6-42f8-92ba-124290d13b3c')
+                        //    .fail(function (error) {
+                        //        console.log(error);
+                        //    });
+                        var retros = window.sessionStorage.getItem('sr_retros');
+                        if (retros && Array.isArray(retros)) {
+                            retros.forEach(function (retroId) {
+                                centralHub.invoke("JoinGroup", retroId);
+                            });
+                        }
                     })
                         .fail(function (error) {
                         console.log(error);

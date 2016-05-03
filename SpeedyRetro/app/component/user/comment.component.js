@@ -24,33 +24,28 @@ System.register(['angular2/core', '../../hub/svc/comment.service'], function(exp
             CommentComponent = (function () {
                 function CommentComponent(_commentService) {
                     this._commentService = _commentService;
-                    this.comment = { 'id': Math.random(), 'userId': 'blah' };
+                    this.comment = { 'id': Math.random() };
                 }
-                CommentComponent.prototype.onChange = function (event) {
-                    this.update(event);
-                };
                 CommentComponent.prototype.onDragStart = function (event) {
                     var id = event.target.id;
                     var data = { 'id': id };
                     event.dataTransfer.setData('plain/text', JSON.stringify(data));
                 };
                 CommentComponent.prototype.onDragEnd = function (event) {
-                    this.update(event);
-                };
-                CommentComponent.prototype.update = function (event) {
                     var textArea = event.target;
                     var td = textArea.parentNode.parentNode;
-                    var message = textArea.value;
+                    var message = textArea.innerText;
                     var commentState = td.dataset.commentstate;
                     var commentId = textArea.id;
-                    var comment = { 'retroId': '35e45f1e-aca6-42f8-92ba-124290d13b3c', 'message': message, 'state': commentState, 'id': commentId };
+                    var comment = { 'retroId': '35e45f1e-aca6-42f8-92ba-124290d13b3c', 'message': message, 'state': commentState, id: commentId };
                     this._commentService.update(comment);
                 };
                 CommentComponent = __decorate([
                     core_1.Component({
                         selector: 'sr-comment',
                         templateUrl: 'app/component/comment/html/comment.component.html',
-                        styleUrls: ['app/component/comment/css/comment.component.css']
+                        styleUrls: ['app/component/comment/css/comment.component.css'],
+                        providers: [comment_service_1.CommentService]
                     }), 
                     __metadata('design:paramtypes', [comment_service_1.CommentService])
                 ], CommentComponent);

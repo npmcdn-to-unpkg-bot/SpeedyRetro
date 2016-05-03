@@ -1,11 +1,10 @@
 <h1>Create a Retro!</h1>
-<nav>
-    <div *ngIf="retroExist">
-        <input type="text" name="txt_retroname" placeholder="retro" />
-    </div>
+<form>
     <div>
-        <input type="text" name="txt_username" placeholder="username" />
+        <input type="text" name="txt_retroname" placeholder="retro" required />
+    </div>
+    <div #user>
     </div>
     <a (click)="createRetro()">create</a>
-</nav>
+</form>
 <router-outlet></router-outlet>

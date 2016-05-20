@@ -5,5 +5,6 @@ import 'rxjs/Rx';
 
 import {AppComponent} from './component/_start/app.component';
 import {CommentService} from './hub/svc/comment.service';
+import {CentralHubService} from './hub/svc/centralHub.service';
 
-bootstrap(AppComponent, [CommentService, ROUTER_PROVIDERS, HTTP_PROVIDERS]);
+bootstrap(AppComponent, [ROUTER_PROVIDERS, HTTP_PROVIDERS, CommentService, CentralHubService]);

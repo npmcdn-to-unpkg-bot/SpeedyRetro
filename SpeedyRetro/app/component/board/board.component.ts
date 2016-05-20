@@ -21,21 +21,11 @@ export class BoardComponent implements OnInit {
         private _elementRef: ElementRef) { }
     
     ngOnInit() {
-        let retroId = this._routeParams.get('id');
+        let retroId = this._routeParams.get('retroId');
         if (retroId) {
-            var retros = window.sessionStorage.getItem('sr_retros');
-            if (retros && Array.isArray(retros) && retros.indexOf(retroId) < 0) {
-                 retros.push(retroId);
-            } else {
-                retros = [];
-
-                retros.push(retroId);
-
-                window.sessionStorage.setItem('sr_retros', retros);
-            }
         }
         else {
-            //render create retro form
+            //redirect?
         }
         this.renderComment();
     }

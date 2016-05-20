@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../../component/user/user.component', '../../component/board/board.component', '../../hub/svc/retro.service', '../../hub/svc/comment.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../../component/user/user.component', '../../component/board/board.component', '../../hub/svc/retro.service', '../../hub/svc/comment.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../../component
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Rx_1, user_component_1, board_component_1, retro_service_1, comment_service_1;
+    var core_1, router_1, user_component_1, board_component_1, retro_service_1, comment_service_1;
     var AppComponent;
     return {
         setters:[
@@ -19,9 +19,6 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../../component
             },
             function (router_1_1) {
                 router_1 = router_1_1;
-            },
-            function (Rx_1_1) {
-                Rx_1 = Rx_1_1;
             },
             function (user_component_1_1) {
                 user_component_1 = user_component_1_1;
@@ -43,7 +40,6 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../../component
                     this._dynamicComponentLoader = _dynamicComponentLoader;
                     this._elementRef = _elementRef;
                     this.retroExist = false;
-                    this.subject = new Rx_1.Subject();
                 }
                 AppComponent.prototype.ngOnInit = function () {
                     this.renderUser();
@@ -51,13 +47,12 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../../component
                 AppComponent.prototype.createRetro = function () {
                     var _this = this;
                     this._retroService.add()
-                        .subscribe(function (retro) { return _this.retro = retro; }, function (error) { return _this.error = error; });
-                    this._router.navigate(['Retros', { id: this.retro.id }]);
+                        .subscribe(function (retro) {
+                        _this._router.navigate(['Retros', { 'retroId': retro.id }]);
+                    }, function (error) { return _this.error = error; });
                 };
                 AppComponent.prototype.renderUser = function () {
-                    var _this = this;
-                    this._dynamicComponentLoader.loadIntoLocation(user_component_1.UserComponent, this._elementRef, 'user')
-                        .then(function (compRef) { return _this.subject.subscribe(compRef.instance); });
+                    this._dynamicComponentLoader.loadIntoLocation(user_component_1.UserComponent, this._elementRef, 'user');
                 };
                 AppComponent = __decorate([
                     core_1.Component({
@@ -68,7 +63,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../../component
                         providers: [retro_service_1.RetroService, comment_service_1.CommentService],
                     }),
                     router_1.RouteConfig([
-                        { path: '/retro/:id', name: 'Retros', component: board_component_1.BoardComponent }
+                        { path: '/retro/:retroId', name: 'Retros', component: board_component_1.BoardComponent }
                     ]), 
                     __metadata('design:paramtypes', [retro_service_1.RetroService, router_1.Router, core_1.DynamicComponentLoader, core_1.ElementRef])
                 ], AppComponent);

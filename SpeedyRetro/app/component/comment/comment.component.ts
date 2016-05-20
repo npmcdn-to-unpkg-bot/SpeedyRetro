@@ -1,4 +1,6 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
+import {RouteParams} from 'angular2/router';
+
 import {CommentService} from '../../hub/svc/comment.service';
 
 @Component({
@@ -6,10 +8,18 @@ import {CommentService} from '../../hub/svc/comment.service';
     templateUrl: 'app/component/comment/html/comment.component.html',
     styleUrls: ['app/component/comment/css/comment.component.css']
 })
-export class CommentComponent {
+export class CommentComponent implements OnInit{
+    retroId: string;
     comment = { 'id': Math.random(), 'userId': 'blah'};
 
-    constructor(private _commentService: CommentService) {
+    constructor(private _commentService: CommentService,
+        private _routeParams: RouteParams) {
+    }
+
+    ngOnInit() {
+        this.retroId = this._routeParams.get('retroId');
+
+        this._commentService.startConnection(this.retroId);
     }
 
     onChange(event) {
@@ -39,7 +49,9 @@ export class CommentComponent {
 
         var commentId = textArea.id;
 
-        var comment = { 'retroId': '35e45f1e-aca6-42f8-92ba-124290d13b3c', 'message': message, 'state': commentState, 'id': commentId };
+        let retroId = this._routeParams.get('retroId');
+
+        var comment = { 'retroId': retroId, 'message': message, 'state': commentState, 'id': commentId };
 
         this._commentService.update(comment);
     }

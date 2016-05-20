@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../hub/svc/comment.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../../hub/svc/comment.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,20 +10,24 @@ System.register(['angular2/core', '../../hub/svc/comment.service'], function(exp
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, comment_service_1;
+    var core_1, router_1, comment_service_1;
     var CommentComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
             function (comment_service_1_1) {
                 comment_service_1 = comment_service_1_1;
             }],
         execute: function() {
             CommentComponent = (function () {
-                function CommentComponent(_commentService) {
+                function CommentComponent(_commentService, _routeParams) {
                     this._commentService = _commentService;
+                    this._routeParams = _routeParams;
                     this.comment = { 'id': Math.random(), 'userId': 'blah' };
                 }
                 CommentComponent.prototype.onChange = function (event) {
@@ -43,7 +47,8 @@ System.register(['angular2/core', '../../hub/svc/comment.service'], function(exp
                     var message = textArea.value;
                     var commentState = td.dataset.commentstate;
                     var commentId = textArea.id;
-                    var comment = { 'retroId': '35e45f1e-aca6-42f8-92ba-124290d13b3c', 'message': message, 'state': commentState, 'id': commentId };
+                    var retroId = this._routeParams.get('retroId');
+                    var comment = { 'retroId': retroId, 'message': message, 'state': commentState, 'id': commentId };
                     this._commentService.update(comment);
                 };
                 CommentComponent = __decorate([
@@ -52,7 +57,7 @@ System.register(['angular2/core', '../../hub/svc/comment.service'], function(exp
                         templateUrl: 'app/component/comment/html/comment.component.html',
                         styleUrls: ['app/component/comment/css/comment.component.css']
                     }), 
-                    __metadata('design:paramtypes', [comment_service_1.CommentService])
+                    __metadata('design:paramtypes', [comment_service_1.CommentService, router_1.RouteParams])
                 ], CommentComponent);
                 return CommentComponent;
             }());

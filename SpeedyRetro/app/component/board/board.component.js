@@ -38,17 +38,8 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../comment/comm
                     this.subject = new Rx_1.Subject();
                 }
                 BoardComponent.prototype.ngOnInit = function () {
-                    var retroId = this._routeParams.get('id');
+                    var retroId = this._routeParams.get('retroId');
                     if (retroId) {
-                        var retros = window.sessionStorage.getItem('sr_retros');
-                        if (retros && Array.isArray(retros) && retros.indexOf(retroId) < 0) {
-                            retros.push(retroId);
-                        }
-                        else {
-                            retros = [];
-                            retros.push(retroId);
-                            window.sessionStorage.setItem('sr_retros', retros);
-                        }
                     }
                     else {
                     }

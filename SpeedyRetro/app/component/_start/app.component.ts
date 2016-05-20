@@ -13,10 +13,10 @@ import {CommentService} from '../../hub/svc/comment.service';
     templateUrl: 'app/component/_start/html/app.component.html',
     styleUrls: ['app/component/_start/css/app.component.css'],
     directives: [ROUTER_DIRECTIVES, UserComponent],
-    providers: [RetroService, CommentService],
+    providers: [RetroService],
 })
-    @RouteConfig([
-        { path: '/retro/:id', name: 'Retros', component: BoardComponent }
+@RouteConfig([
+        { path: '/retro/:retroId', name: 'Retros', component: BoardComponent }
 ])
 export class AppComponent implements OnInit {
     error: string;
@@ -35,9 +35,9 @@ export class AppComponent implements OnInit {
 
     createRetro() {
         this._retroService.add()
-            .subscribe(retro => this.retro = retro, error => this.error = <any>error);
-
-        this._router.navigate(['Retros', { id: this.retro.id }]);
+            .subscribe(retro => {
+                this._router.navigate(['Retros', { 'retroId': retro.id }]);
+            }, error => this.error = <any>error);
     }
 
     private renderUser() {

@@ -1,4 +1,4 @@
-import {Injectable}     from 'angular2/core';
+import {Component, Injectable}     from 'angular2/core';
 
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../../typings/signalr/signalr.d.ts" />
@@ -7,15 +7,15 @@ import {Injectable}     from 'angular2/core';
 export class CentralHubService {
     protected jQuery: JQueryStatic;
 
-    protected centralHub: SignalR.Hub.Proxy;
+    public centralHub: SignalR.Hub.Proxy;
 
-    protected centralHubConnection: SignalR.Hub.Connection;
+    public centralHubConnection: SignalR.Hub.Connection;
 
-    constructor() {
-        this.startConnection();
-    }
+    //constructor() {
+    //    //this.startConnection();
+    //}
 
-    protected startConnection() {
+    public startConnection(retroId) {
         this.centralHubConnection = jQuery.hubConnection();
         
         this.centralHubConnection.error(function (error) {
@@ -46,17 +46,9 @@ export class CentralHubService {
         });
 
         this.centralHubConnection.start().done(function () {
-            //centralHub.invoke("JoinGroup", '35e45f1e-aca6-42f8-92ba-124290d13b3c')
-            //    .fail(function (error) {
-            //        console.log(error);
-            //    });
-            var retros = window.sessionStorage.getItem('sr_retros');
+            //let retroId = this._routeParams.get('retroId');
 
-            if (retros && Array.isArray(retros)) {
-                retros.forEach(function (retroId) {
-                    centralHub.invoke("JoinGroup", retroId);
-                });
-            }
+            centralHub.invoke('JoinGroup', retroId);
         })
         .fail(function (error) {
             console.log(error);

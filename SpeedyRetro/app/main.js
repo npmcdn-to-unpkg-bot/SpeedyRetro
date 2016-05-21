@@ -1,7 +1,7 @@
-System.register(['angular2/http', 'angular2/router', 'angular2/platform/browser', 'rxjs/Rx', './component/_start/app.component', './hub/svc/comment.service'], function(exports_1, context_1) {
+System.register(['angular2/http', 'angular2/router', 'angular2/platform/browser', 'rxjs/Rx', './component/_start/app.component', './hub/svc/comment.service', './hub/svc/centralHub.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var http_1, router_1, browser_1, app_component_1, comment_service_1;
+    var http_1, router_1, browser_1, app_component_1, comment_service_1, centralHub_service_1;
     return {
         setters:[
             function (http_1_1) {
@@ -19,9 +19,12 @@ System.register(['angular2/http', 'angular2/router', 'angular2/platform/browser'
             },
             function (comment_service_1_1) {
                 comment_service_1 = comment_service_1_1;
+            },
+            function (centralHub_service_1_1) {
+                centralHub_service_1 = centralHub_service_1_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent, [router_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS, comment_service_1.CommentService]);
+            browser_1.bootstrap(app_component_1.AppComponent, [router_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS, comment_service_1.CommentService, centralHub_service_1.CentralHubService]);
         }
     }
 });

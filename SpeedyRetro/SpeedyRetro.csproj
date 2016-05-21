@@ -229,8 +229,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\component\user\css\user.component.css" />
-    <Content Include="app\component\user\html\user.component.html" />
+    <Content Include="app\component\login\css\login.component.css" />
+    <Content Include="app\component\login\html\login.component.html" />
+    <Content Include="app\component\addRetro\css\addRetro.component.css" />
+    <Content Include="app\component\addRetro\html\addRetro.component.html" />
     <Content Include="app\component\_start\css\app.component.css" />
     <Content Include="app\component\board\css\board.component.css" />
     <Content Include="app\component\comment\css\comment.component.css" />
@@ -306,7 +308,8 @@
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\component\user\user.component.ts" />
+    <TypeScriptCompile Include="app\component\login\login.component.ts" />
+    <TypeScriptCompile Include="app\component\addRetro\addRetro.component.ts" />
     <TypeScriptCompile Include="app\component\_start\app.component.ts" />
     <TypeScriptCompile Include="app\component\comment\comment.component.ts" />
     <TypeScriptCompile Include="app\hub\entities\comment.ts" />

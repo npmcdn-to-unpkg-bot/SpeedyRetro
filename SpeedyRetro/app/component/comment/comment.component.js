@@ -30,6 +30,10 @@ System.register(['angular2/core', 'angular2/router', '../../hub/svc/comment.serv
                     this._routeParams = _routeParams;
                     this.comment = { 'id': Math.random(), 'userId': 'blah' };
                 }
+                CommentComponent.prototype.ngOnInit = function () {
+                    this.retroId = this._routeParams.get('retroId');
+                    this._commentService.startConnection(this.retroId);
+                };
                 CommentComponent.prototype.onChange = function (event) {
                     this.update(event);
                 };

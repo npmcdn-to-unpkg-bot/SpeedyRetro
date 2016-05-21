@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './centralHub.service'], function(exports_1, context_1) {
+System.register(['angular2/core', './centralHub.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,32 +10,32 @@ System.register(['angular2/core', 'angular2/router', './centralHub.service'], fu
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, centralHub_service_1;
+    var core_1, centralHub_service_1;
     var CommentService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
-            },
             function (centralHub_service_1_1) {
                 centralHub_service_1 = centralHub_service_1_1;
             }],
         execute: function() {
+            //@Component({
+            //    providers: [CentralHubService]
+            //})
             CommentService = (function () {
-                function CommentService(_routeParams) {
-                    this._routeParams = _routeParams;
-                    this.centralHubService = new centralHub_service_1.CentralHubService();
-                    var retroId = _routeParams.get('retroId');
-                    this.centralHubService.startConnection(retroId);
+                function CommentService(_centralHubService) {
+                    this._centralHubService = _centralHubService;
                 }
+                CommentService.prototype.startConnection = function (retroId) {
+                    this._centralHubService.startConnection(retroId);
+                };
                 CommentService.prototype.update = function (comment) {
-                    console.log('connection state: ' + this.centralHubService.centralHubConnection.state);
+                    console.log('connection state: ' + this._centralHubService.centralHubConnection.state);
                     //{ 0: 'connecting', 1: 'connected', 2: 'reconnecting', 4: 'disconnected' }
-                    if (this.centralHubService.centralHubConnection.state === 1) {
-                        this.centralHubService.centralHub.invoke('send', comment.retroId, comment.message, comment.state, comment.id)
+                    if (this._centralHubService.centralHubConnection.state === 1) {
+                        this._centralHubService.centralHub.invoke('send', comment.retroId, comment.message, comment.state, comment.id)
                             .fail(function (error) {
                             console.log(error);
                         });
@@ -45,11 +45,8 @@ System.register(['angular2/core', 'angular2/router', './centralHub.service'], fu
                     }
                 };
                 CommentService = __decorate([
-                    core_1.Component({
-                        providers: [router_1.RouteParams]
-                    }),
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [router_1.RouteParams])
+                    __metadata('design:paramtypes', [centralHub_service_1.CentralHubService])
                 ], CommentService);
                 return CommentService;
             }());

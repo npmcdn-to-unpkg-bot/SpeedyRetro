@@ -74,11 +74,11 @@ namespace SpeedyRetro.Controllers
             return Json(new { id = Guid.NewGuid() }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult About()
+        public ActionResult Login()
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return View("~/Views/Home/Retrospective.cshtml");
         }
 
         public ActionResult Contact()

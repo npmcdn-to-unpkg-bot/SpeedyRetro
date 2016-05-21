@@ -36,29 +36,26 @@ System.register(['angular2/core', 'angular2/router', '../../component/login/logi
                     this._router = _router;
                     this._dynamicComponentLoader = _dynamicComponentLoader;
                     this._elementRef = _elementRef;
-                    this.userExists = false;
-                    this.retroExist = true;
+                    this.retroExist = false;
                 }
                 AppComponent.prototype.ngOnInit = function () {
-                    //this.renderUser();
+                    this.renderUser();
+                };
+                AppComponent.prototype.createRetro = function () {
                     var _this = this;
-                    if (!this.retroExist) {
-                        this._retroService.add()
-                            .subscribe(function (retro) {
-                            _this._router.navigate(['Retros', { 'retroId': retro.id }]);
-                        }, function (error) { return _this.error = error; });
-                    }
-                    else if (!this.userExists) {
-                        this._router.navigate(['Login']);
-                    }
-                    else {
-                    }
+                    this._retroService.add()
+                        .subscribe(function (retro) {
+                        _this._router.navigate(['Retros', { 'retroId': retro.id }]);
+                    }, function (error) { return _this.error = error; });
+                };
+                AppComponent.prototype.renderUser = function () {
+                    this._dynamicComponentLoader.loadIntoLocation(login_component_1.LoginComponent, this._elementRef, 'login');
                 };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        //templateUrl: 'app/component/_start/html/app.component.html',
-                        //styleUrls: ['app/component/_start/css/app.component.css'],
+                        templateUrl: 'app/component/_start/html/app.component.html',
+                        styleUrls: ['app/component/_start/css/app.component.css'],
                         directives: [router_1.ROUTER_DIRECTIVES, login_component_1.LoginComponent],
                         providers: [retro_service_1.RetroService],
                     }),

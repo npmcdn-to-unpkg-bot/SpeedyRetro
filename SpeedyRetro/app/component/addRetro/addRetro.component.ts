@@ -12,7 +12,6 @@ import {LoginComponent} from '../../component/login/login.component';
 })
 
 export class AddRetroComponent implements OnInit {
-    userExists: boolean = false;
     error: string;
 
     constructor(private _dynamicComponentLoader: DynamicComponentLoader,

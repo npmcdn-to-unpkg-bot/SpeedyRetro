@@ -36,6 +36,8 @@ namespace SpeedyRetro.Controllers
             //payload.Add("sub", "UserManagement");
             //payload.Add("sr_uid", userId);
 
+            //set temp cookie with retro id if user is not logged in
+
             var header = new Dictionary<string, object>
             {
                 ["alg"] = "HS256",

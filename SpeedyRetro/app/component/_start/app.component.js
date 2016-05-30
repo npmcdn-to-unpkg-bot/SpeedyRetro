@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../component/login/login.component', '../../component/board/board.component', '../../hub/svc/retro.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../../component/login/login.component', '../../component/board/board.component', '../../component/addretro/addretro.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../../component/login/logi
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, login_component_1, board_component_1, retro_service_1;
+    var core_1, router_1, login_component_1, board_component_1, addretro_component_1;
     var AppComponent;
     return {
         setters:[
@@ -26,30 +26,21 @@ System.register(['angular2/core', 'angular2/router', '../../component/login/logi
             function (board_component_1_1) {
                 board_component_1 = board_component_1_1;
             },
-            function (retro_service_1_1) {
-                retro_service_1 = retro_service_1_1;
+            function (addretro_component_1_1) {
+                addretro_component_1 = addretro_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent(_retroService, _router, _dynamicComponentLoader, _elementRef) {
-                    this._retroService = _retroService;
+                function AppComponent(_router, _dynamicComponentLoader, _elementRef) {
                     this._router = _router;
                     this._dynamicComponentLoader = _dynamicComponentLoader;
                     this._elementRef = _elementRef;
-                    this.userExists = false;
+                    //userExists: boolean = true;
                     this.retroExist = true;
                 }
                 AppComponent.prototype.ngOnInit = function () {
-                    //this.renderUser();
-                    var _this = this;
                     if (!this.retroExist) {
-                        this._retroService.add()
-                            .subscribe(function (retro) {
-                            _this._router.navigate(['Retros', { 'retroId': retro.id }]);
-                        }, function (error) { return _this.error = error; });
-                    }
-                    else if (!this.userExists) {
-                        this._router.navigate(['Login']);
+                        this._router.navigate(['Route-Add-Retro']);
                     }
                     else {
                     }
@@ -57,16 +48,15 @@ System.register(['angular2/core', 'angular2/router', '../../component/login/logi
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        //templateUrl: 'app/component/_start/html/app.component.html',
-                        //styleUrls: ['app/component/_start/css/app.component.css'],
-                        directives: [router_1.ROUTER_DIRECTIVES, login_component_1.LoginComponent],
-                        providers: [retro_service_1.RetroService],
+                        template: '<router-outlet></router-outlet>',
+                        directives: [router_1.ROUTER_DIRECTIVES, login_component_1.LoginComponent]
                     }),
                     router_1.RouteConfig([
-                        { path: '/login/', name: 'Login', component: login_component_1.LoginComponent },
-                        { path: '/retro/:retroId', name: 'Retros', component: board_component_1.BoardComponent }
+                        { path: '/login/', name: 'Route-Login', component: login_component_1.LoginComponent },
+                        { path: '/start/', name: 'Route-Add-Retro', component: addretro_component_1.AddRetroComponent },
+                        { path: '/retro/:retroId', name: 'Route-Retro-Board', component: board_component_1.BoardComponent }
                     ]), 
-                    __metadata('design:paramtypes', [retro_service_1.RetroService, router_1.Router, core_1.DynamicComponentLoader, core_1.ElementRef])
+                    __metadata('design:paramtypes', [router_1.Router, core_1.DynamicComponentLoader, core_1.ElementRef])
                 ], AppComponent);
                 return AppComponent;
             }());

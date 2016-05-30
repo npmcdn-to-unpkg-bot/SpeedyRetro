@@ -13,21 +13,23 @@ import {CommentComponent} from '../comment/comment.component';
 export class BoardComponent implements OnInit {
     lanes = [{ 'name': 'Good :)', 'state': 'good' },
         { 'name': 'Bad :(', 'state': 'bad' },
-        { 'name': 'Action Points !', 'state': 'action' }];
+        { 'name': 'Action Points!', 'state': 'action' }];
     subject: Subject<any> = new Subject();
 
-    constructor(private _routeParams: RouteParams,
+    constructor(private _router: Router,
+        private _routeParams: RouteParams,
         private _dynamicComponentLoader: DynamicComponentLoader,
         private _elementRef: ElementRef) { }
     
     ngOnInit() {
         let retroId = this._routeParams.get('retroId');
         if (retroId) {
+            //window.sessionStorage.setItem('sr-temp-retroId', retroId);
+            this.renderComment();
         }
         else {
-            //redirect?
+            this._router.navigate(['Route-Add-Retro']);
         }
-        this.renderComment();
     }
 
     addComment() {

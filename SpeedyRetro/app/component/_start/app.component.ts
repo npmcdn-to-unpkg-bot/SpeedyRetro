@@ -21,8 +21,8 @@ import {CommentService} from '../../hub/svc/comment.service';
 export class AppComponent implements OnInit {
     error: string;
     retro: Retro;
-    userExists: boolean = true;
-    retroExist: boolean = false;
+    //userExists: boolean = true;
+    retroExist: boolean = true;
 
     constructor(private _router: Router,
         private _dynamicComponentLoader: DynamicComponentLoader,
@@ -33,9 +33,9 @@ export class AppComponent implements OnInit {
         if (!this.retroExist) {
             this._router.navigate(['Route-Add-Retro']);
         }
-        if (!this.userExists) {
-            this._router.navigate(['Route-Login']);
-        }
+        //if (!this.userExists) {
+        //    this._router.navigate(['Route-Login']);
+        //}
         else {
             //let retroId = this._routeParams.get('retroId');
 

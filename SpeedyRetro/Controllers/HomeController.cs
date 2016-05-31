@@ -36,7 +36,7 @@ namespace SpeedyRetro.Controllers
             //payload.Add("sub", "UserManagement");
             //payload.Add("sr_uid", userId);
 
-            //set temp cookie with retro id if user is not logged in
+            //set temp sr-temp-retroId cookie with retro id if user is not logged in
 
             var header = new Dictionary<string, object>
             {
@@ -79,6 +79,13 @@ namespace SpeedyRetro.Controllers
         public ActionResult Login()
         {
             ViewBag.Message = "Your application description page.";
+
+            return View("~/Views/Home/Retrospective.cshtml");
+        }
+
+        public ActionResult Start()
+        {
+            ViewBag.Message = "Your contact page.";
 
             return View("~/Views/Home/Retrospective.cshtml");
         }

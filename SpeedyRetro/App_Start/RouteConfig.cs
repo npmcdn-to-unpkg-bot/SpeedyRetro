@@ -28,6 +28,12 @@ namespace SpeedyRetro
             );
 
             routes.MapRoute(
+                name: "Start-Route",
+                url: "start",
+                defaults: new { controller = "Home", action = "Start" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

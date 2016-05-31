@@ -24,7 +24,7 @@ export class BoardComponent implements OnInit {
     ngOnInit() {
         let retroId = this._routeParams.get('retroId');
         if (retroId) {
-            //window.sessionStorage.setItem('sr-temp-retroId', retroId);
+            //remove any temp cookies
             this.renderComment();
         }
         else {

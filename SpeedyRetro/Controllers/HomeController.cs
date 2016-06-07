@@ -15,14 +15,19 @@ namespace SpeedyRetro.Controllers
 
         public ActionResult Retrospective(string id)
         {
-            Guid retroId;
-
-            if (string.IsNullOrWhiteSpace(id) || !Guid.TryParse(id, out retroId))
-            {
-                retroId = Guid.NewGuid();
-            }
+            var retroId = Guid.NewGuid();
 
             var userId = Guid.NewGuid();
+
+            using (var context = new SpeedyRetroDbContext())
+            {
+                context.Retrospectives.Add(new RetrospectiveViewModel
+                {
+                    Id = retroId
+                });
+
+                context.SaveChanges();
+            }
 
             //TODO will need to check if cookie exists first before setting it!
 
@@ -65,15 +70,59 @@ namespace SpeedyRetro.Controllers
             var view = new RetrospectiveViewModel
             {
                 Id = retroId,
-                UserId = userId
+                //UserId = userId
             };
 
             return View("~/Views/Home/Retrospective.cshtml", view);
         }
 
-        public JsonResult AddRetro()
+        public JsonResult AddRetro(string name)
         {
-            return Json(new { id = Guid.NewGuid() }, JsonRequestBehavior.AllowGet);
+            var retroId = Guid.NewGuid();
+
+            var userId = Guid.NewGuid();
+
+            using (var context = new SpeedyRetroDbContext())
+            {
+                context.Retrospectives.Add(new RetrospectiveViewModel
+                {
+                    Id = retroId,
+                    Name = name
+                });
+
+                context.SaveChanges();
+            }
+            
+            var header = new Dictionary<string, object>
+            {
+                ["alg"] = "HS256",
+                ["typ"] = "JWT"
+            };
+
+            var payload = new Dictionary<string, object>
+            {
+                ["iss"] = "SpeedyRetro",
+                ["exp"] = DateTime.UtcNow.AddYears(1).Second.ToString(),
+                ["sub"] = "UserManagement",
+                ["sr_uid"] = userId
+            };
+
+            var secret = "SpeedyRetro is great";
+
+            var jwtToken = new JwtToken(header, payload, secret);
+
+            var httpCookie = new HttpCookie("sr_user", jwtToken.ComputedValue());
+
+            httpCookie.Expires = DateTime.UtcNow.AddYears(1);
+
+            this.HttpContext.Response.AppendCookie(httpCookie);
+
+            var view = new RetrospectiveViewModel
+            {
+                Id = retroId,
+            };
+
+            return Json(new { id = retroId }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Login()

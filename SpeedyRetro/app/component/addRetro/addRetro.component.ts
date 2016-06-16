@@ -19,7 +19,7 @@ export class AddRetroComponent {
     }
 
     createRetro() {
-        this._retroService.add()
+        this._retroService.add('new retro')
             .subscribe(retro => {
                 this._router.navigate(['Route-Retro-Board', { 'retroId': retro.id }]);
             }, error => this.error = <any>error);

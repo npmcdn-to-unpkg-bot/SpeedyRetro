@@ -10,5 +10,7 @@ namespace SpeedyRetro.Models
         }
 
         public DbSet<RetrospectiveViewModel> Retrospectives { get; set; }
+
+        public DbSet<UserModel> Users { get; set; }
     }
 }

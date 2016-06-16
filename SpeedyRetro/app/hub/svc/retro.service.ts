@@ -10,8 +10,8 @@ export class RetroService {
 
     constructor(private _http: Http) { }
 
-    add(): Observable<Retro> {
-        return this._http.get('/home/addretro')
+    add(name: String): Observable<Retro> {
+        return this._http.get('/home/addretro/' + name)
             .map(this.extractData)
             .catch(this.handleError);
     }

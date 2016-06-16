@@ -27933,3 +27933,4 @@ SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(f57a38b6-f9a7-45a4-
 SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(f57a38b6-f9a7-45a4-b35e-f1851dc8f5e1)
 SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(f57a38b6-f9a7-45a4-b35e-f1851dc8f5e1)
 SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(f57a38b6-f9a7-45a4-b35e-f1851dc8f5e1)
+SignalR.Transports.TransportHeartBeat Information: 0 : Connection 96f184f6-e995-4684-ab18-863d316053cc is New.

@@ -22,9 +22,9 @@ namespace SpeedyRetro
             );
 
             routes.MapRoute(
-                name: "Login-Route",
-                url: "login",
-                defaults: new { controller = "Home", action = "Login" }
+                name: "Add-User-Route",
+                url: "adduser",
+                defaults: new { controller = "Home", action = "AddUser" }
             );
 
             routes.MapRoute(

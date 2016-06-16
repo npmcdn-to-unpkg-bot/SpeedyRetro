@@ -224,6 +224,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JwtToken.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\RetrospectiveViewModel.cs" />
     <Compile Include="Models\SpeedyRetroDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

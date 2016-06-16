@@ -1,6 +1,7 @@
 ﻿using SpeedyRetro.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -37,7 +38,7 @@ namespace SpeedyRetro.Controllers
 
             //var payload = new Dictionary<string, object>();
             //payload.Add("iss", "SpeedyRetro");
-            //payload.Add("exp", DateTime.UtcNow.AddYears(1).Second.ToString());
+            //payload.Add("exp", DateTime.UtcNow.AddYears(1).Second.ToString())sr-temp-retroId;
             //payload.Add("sub", "UserManagement");
             //payload.Add("sr_uid", userId);
 
@@ -92,7 +93,7 @@ namespace SpeedyRetro.Controllers
 
                 context.SaveChanges();
             }
-            
+
             var header = new Dictionary<string, object>
             {
                 ["alg"] = "HS256",
@@ -125,11 +126,59 @@ namespace SpeedyRetro.Controllers
             return Json(new { id = retroId }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Login()
+        public ActionResult AddUser(string username)
         {
-            ViewBag.Message = "Your application description page.";
+            var cookies = this.HttpContext.Request.Cookies;
 
-            return View("~/Views/Home/Retrospective.cshtml");
+            var retroCookie = cookies["sr-temp-retroId"];
+
+            var retroId = Guid.Parse(retroCookie.Value);
+
+            var userId = Guid.NewGuid();
+
+            using (var context = new SpeedyRetroDbContext())
+            {
+                var retrospective = context.Retrospectives.Where(retro => retro.Id == retroId).Single();
+
+                context.Users.Add(new UserModel
+                {
+                    Id = userId,
+                    Name = username,
+                    Retrospective = retrospective
+                });
+
+                context.SaveChanges();
+            }
+
+            var header = new Dictionary<string, object>
+            {
+                ["alg"] = "HS256",
+                ["typ"] = "JWT"
+            };
+
+            var payload = new Dictionary<string, object>
+            {
+                ["iss"] = "SpeedyRetro",
+                ["exp"] = DateTime.UtcNow.AddYears(1).Second.ToString(),
+                ["sub"] = "UserManagement",
+                ["sr_uid"] = userId
+            };
+
+            var secret = "SpeedyRetro is great";
+
+            var jwtToken = new JwtToken(header, payload, secret);
+
+            var httpCookie = new HttpCookie("sr_user", jwtToken.ComputedValue());
+
+            httpCookie.Expires = DateTime.UtcNow.AddYears(1);
+
+            this.HttpContext.Response.AppendCookie(httpCookie);
+
+            retroCookie.Expires = DateTime.UtcNow.AddYears(-1);
+
+            this.HttpContext.Response.AppendCookie(retroCookie);
+
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Start()

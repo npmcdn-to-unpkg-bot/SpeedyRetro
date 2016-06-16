@@ -9,7 +9,7 @@ export class UserService {
     constructor(private _http: Http) { }
 
     add(user: User): Observable<Object> {
-        return this._http.get('/login')
+        return this._http.get('/adduser/' + user.username)
             .map(this.checkResponse)
             .catch(this.handleError);
     }

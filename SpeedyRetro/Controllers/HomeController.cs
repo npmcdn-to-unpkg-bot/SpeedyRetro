@@ -32,15 +32,37 @@ namespace SpeedyRetro.Controllers
 
             if (userCookie == null)
             {
-                return RedirectToRoute("Add-User-Route");
+                return RedirectToRoute("Login-Route");
             }
-            //else
-            //{
-            var jwtToken = new JwtToken().DecodedValue(userCookie.Value);
+            else
+            {
+                var jwtToken = new JwtToken().DecodedValue(userCookie.Value);
 
-            var payload = JsonConvert.DeserializeObject<Dictionary<string, object>>(jwtToken["Payload"]);
+                var payload = JsonConvert.DeserializeObject<Dictionary<string, object>>(jwtToken["Payload"]);
 
-            //}
+                var userId = Guid.Parse(payload["sr_uid"].ToString());
+
+                using (var context = new SpeedyRetroDbContext())
+                {
+                    var retrospective = context.Retrospectives.Where(retro => retro.Id == retroId).Single();
+
+                    var userModel = context.Users
+                            .Where(user => user.Id == userId)
+                            .SingleOrDefault();
+
+                    if (userModel == null)
+                    {
+                        return RedirectToRoute("Login-Route");
+                    }
+                    else
+                    {
+                        //check if user is associated with retro
+                        //add user to retro
+                    }
+
+                }
+
+            }
 
 
             return View("~/Views/Home/Retrospective.cshtml");
@@ -151,6 +173,13 @@ namespace SpeedyRetro.Controllers
         }
 
         public ActionResult Start()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View("~/Views/Home/Retrospective.cshtml");
+        }
+
+        public ActionResult Login()
         {
             ViewBag.Message = "Your contact page.";
 

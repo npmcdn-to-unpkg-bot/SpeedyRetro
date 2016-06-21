@@ -219,6 +219,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606082140445_InitialCreate.cs" />
+    <Compile Include="Migrations\201606082140445_InitialCreate.Designer.cs">
+      <DependentUpon>201606082140445_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606211941040_AddUserMigration.cs" />
+    <Compile Include="Migrations\201606211941040_AddUserMigration.Designer.cs">
+      <DependentUpon>201606211941040_AddUserMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CentralHub.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -335,7 +344,14 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201606082140445_InitialCreate.resx">
+      <DependentUpon>201606082140445_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606211941040_AddUserMigration.resx">
+      <DependentUpon>201606211941040_AddUserMigration.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

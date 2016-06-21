@@ -25,6 +25,27 @@ namespace SpeedyRetro.Models
             Signature = Convert.ToBase64String(hashAlgorithm.ComputeHash(data));
         }
 
+        public JwtToken()
+        {
+        }
+
+        public Dictionary<string, string> DecodedValue(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return null;
+
+            var jwtToken = new Dictionary<string, string>();
+
+            var claims = value.Split('.');
+
+            jwtToken.Add("Header", UTF8Encoding.UTF8.GetString(Convert.FromBase64String(claims[0])));
+
+            jwtToken.Add("Payload", UTF8Encoding.UTF8.GetString(Convert.FromBase64String(claims[1])));
+
+            jwtToken.Add("Signature", UTF8Encoding.UTF8.GetString(Convert.FromBase64String(claims[2])));
+
+            return jwtToken;
+        }
+
         public string ComputedValue()
         {
             return Header + "." + Payload + "." + Signature;

@@ -1,10 +1,10 @@
 <h1>Create a Retro!</h1>
 <form>
     <div>
-        <input type="text" name="txt_retroname" placeholder="retro" required />
+        <input type="text" [(ngModel)]="retro.name" name="txt_retroname" placeholder="retro" required />
     </div>
     <div>
-        <input type="text" id="{{login.id}}" name="txt_username" placeholder="username" required />
+        <input type="text" id="{{login.id}}" [(ngModel)]="user.name" name="txt_username" placeholder="username" required />
     </div>
     <a (click)="createRetro()">create</a>
 </form>

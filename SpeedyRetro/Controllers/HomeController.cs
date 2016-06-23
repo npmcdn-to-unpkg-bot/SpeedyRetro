@@ -12,7 +12,7 @@ namespace SpeedyRetro.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToRoute("Start-Route");
         }
 
         public ActionResult Retrospective(string id)
@@ -72,8 +72,6 @@ namespace SpeedyRetro.Controllers
         {
             var retroId = Guid.NewGuid();
 
-            var userId = Guid.NewGuid();
-
             using (var context = new SpeedyRetroDbContext())
             {
                 context.Retrospectives.Add(new RetrospectiveViewModel
@@ -85,30 +83,6 @@ namespace SpeedyRetro.Controllers
                 context.SaveChanges();
             }
 
-            var header = new Dictionary<string, object>
-            {
-                ["alg"] = "HS256",
-                ["typ"] = "JWT"
-            };
-
-            var payload = new Dictionary<string, object>
-            {
-                ["iss"] = "SpeedyRetro",
-                ["exp"] = DateTime.UtcNow.AddYears(1).Second.ToString(),
-                ["sub"] = "UserManagement",
-                ["sr_uid"] = userId
-            };
-
-            var secret = "SpeedyRetro is great";
-
-            var jwtToken = new JwtToken(header, payload, secret);
-
-            var httpCookie = new HttpCookie("sr_user", jwtToken.ComputedValue());
-
-            httpCookie.Expires = DateTime.UtcNow.AddYears(1);
-
-            this.HttpContext.Response.AppendCookie(httpCookie);
-
             var view = new RetrospectiveViewModel
             {
                 Id = retroId,
@@ -117,26 +91,36 @@ namespace SpeedyRetro.Controllers
             return Json(new { id = retroId }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult AddUser(string username)
+        [HttpPost]
+        public ActionResult AddUser(UserViewModel userViewModel)
         {
             var cookies = this.HttpContext.Request.Cookies;
 
-            var retroCookie = cookies["sr-temp-retroId"];
+            //var retroCookie = cookies["sr-temp-retroId"];
 
-            var retroId = Guid.Parse(retroCookie.Value);
+            var retroId = Guid.Parse(userViewModel.RetroId);
 
             var userId = Guid.NewGuid();
 
             using (var context = new SpeedyRetroDbContext())
             {
-                var retrospective = context.Retrospectives.Where(retro => retro.Id == retroId).Single();
+                var retrospective = context.Retrospectives.Where(retro => retro.Id == retroId).SingleOrDefault();
 
-                context.Users.Add(new UserModel
+                if (retrospective == null)
+                {
+                    return RedirectToRoute("Add-Retro-Route");
+                }
+
+                var userModel = new UserModel
                 {
                     Id = userId,
-                    Name = username,
-                    Retrospective = retrospective
-                });
+                    Name = userViewModel.Name,
+                    Retrospectives = new List<RetrospectiveViewModel>()
+                };
+
+                userModel.Retrospectives.Add(retrospective);
+
+                context.Users.Add(userModel);
 
                 context.SaveChanges();
             }
@@ -165,9 +149,9 @@ namespace SpeedyRetro.Controllers
 
             this.HttpContext.Response.AppendCookie(httpCookie);
 
-            retroCookie.Expires = DateTime.UtcNow.AddYears(-1);
+            //retroCookie.Expires = DateTime.UtcNow.AddYears(-1);
 
-            this.HttpContext.Response.AppendCookie(retroCookie);
+            //this.HttpContext.Response.AppendCookie(retroCookie);
 
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }

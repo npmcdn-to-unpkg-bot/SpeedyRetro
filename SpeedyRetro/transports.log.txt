@@ -28073,3 +28073,5 @@ SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(a2bad815-0f9b-4232-
 SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(a2bad815-0f9b-4232-9c61-6965af4f90b5)
 SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(a2bad815-0f9b-4232-9c61-6965af4f90b5)
 SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(a2bad815-0f9b-4232-9c61-6965af4f90b5)
+SignalR.Transports.TransportHeartBeat Information: 0 : Connection 755441fe-3b46-49ff-af78-8bcd5f2affa3 is New.
+SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(755441fe-3b46-49ff-af78-8bcd5f2affa3)

@@ -9,7 +9,14 @@ export class UserService {
     constructor(private _http: Http) { }
 
     add(user: User): Observable<Object> {
-        return this._http.get('/adduser/' + user.username)
+
+        var headers = new Headers();
+
+        headers.append('Content-Type', 'application/json');
+
+        var requestOptions = new RequestOptions({ 'headers': headers });
+
+        return this._http.post('/adduser/', JSON.stringify(user), requestOptions)
             .map(this.checkResponse)
             .catch(this.handleError);
     }

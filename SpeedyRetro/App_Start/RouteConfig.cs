@@ -28,6 +28,12 @@ namespace SpeedyRetro
             );
 
             routes.MapRoute(
+                name: "Add-Retro-Route",
+                url: "addretro/{name}",
+                defaults: new { controller = "Home", action = "AddRetro" }
+            );
+
+            routes.MapRoute(
                 name: "Login-Route",
                 url: "login",
                 defaults: new { controller = "Home", action = "Login" }

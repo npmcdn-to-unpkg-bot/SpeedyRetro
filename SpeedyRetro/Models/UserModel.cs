@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SpeedyRetro.Models
 {
@@ -8,6 +9,6 @@ namespace SpeedyRetro.Models
 
         public string Name { get; set; }
 
-        public RetrospectiveViewModel Retrospective { get; set; }
+        public ICollection<RetrospectiveViewModel> Retrospectives { get; set; }
     }
 }

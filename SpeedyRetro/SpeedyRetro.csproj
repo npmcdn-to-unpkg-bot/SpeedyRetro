@@ -227,6 +227,10 @@
     <Compile Include="Migrations\201606211941040_AddUserMigration.Designer.cs">
       <DependentUpon>201606211941040_AddUserMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606222016221_ManyToManyMigration.cs" />
+    <Compile Include="Migrations\201606222016221_ManyToManyMigration.Designer.cs">
+      <DependentUpon>201606222016221_ManyToManyMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CentralHub.cs" />
@@ -236,6 +240,7 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\RetrospectiveViewModel.cs" />
     <Compile Include="Models\SpeedyRetroDbContext.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -350,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606211941040_AddUserMigration.resx">
       <DependentUpon>201606211941040_AddUserMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606222016221_ManyToManyMigration.resx">
+      <DependentUpon>201606222016221_ManyToManyMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,3 +1,4 @@
 export class Retro {
-	id: string;
+    id: string;
+    name: string;
 }

@@ -28,7 +28,5 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        //this._router.navigate(['Route-Add-Retro']);
-
     }
 }

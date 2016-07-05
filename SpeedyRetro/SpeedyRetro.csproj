@@ -233,6 +233,10 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CommentModel.cs" />
+    <Compile Include="Models\LaneModel.cs" />
+    <Compile Include="Models\PoolModel.cs" />
+    <Compile Include="Models\BoardModel.cs" />
     <Compile Include="Models\CentralHub.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JwtToken.cs" />

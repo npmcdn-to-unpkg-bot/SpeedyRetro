@@ -8,9 +8,15 @@ namespace SpeedyRetro.Models
 {
     public class CentralHub : Hub
     {
+        //This should only be called when updating a comment
         public void Send(Guid retroId, string userComment, string commentState, string commentId)
         {
             //var userId2 = Clients.Caller.userId;
+
+            //get board entity associated with retro
+            //get comment associated with the board entity
+            //if comment exist check lane/commentState against pool associated with the board
+            //pool has a 1:1 mapping with board and a 1:N mapping with lanes
 
             Clients.OthersInGroup(retroId.ToString()).onCommentStateChanged(userComment, commentState, commentId);
             //Clients.All.onCommentStateChanged(userComment, commentState, commentId);

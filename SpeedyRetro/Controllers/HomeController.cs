@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SpeedyRetro.Data.Entities;
 using SpeedyRetro.Models;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace SpeedyRetro.Controllers
             using (var context = new SpeedyRetroDbContext())
             {
                 var retrospective = context.Retrospectives
-                    .Where(retro => retro.Id == retroId)
+                    .Where(retro => retro.Guid == retroId)
                     .FirstOrDefault();
             }
 
@@ -44,10 +45,10 @@ namespace SpeedyRetro.Controllers
 
                 using (var context = new SpeedyRetroDbContext())
                 {
-                    var retrospective = context.Retrospectives.Where(retro => retro.Id == retroId).Single();
+                    var retrospective = context.Retrospectives.Where(retro => retro.Guid == retroId).Single();
 
                     var userModel = context.Users
-                            .Where(user => user.Id == userId)
+                            .Where(user => user.Guid == userId)
                             .SingleOrDefault();
 
                     if (userModel == null)
@@ -64,7 +65,6 @@ namespace SpeedyRetro.Controllers
 
             }
 
-
             return View("~/Views/Home/Retrospective.cshtml");
         }
 
@@ -74,18 +74,18 @@ namespace SpeedyRetro.Controllers
 
             using (var context = new SpeedyRetroDbContext())
             {
-                context.Retrospectives.Add(new RetrospectiveViewModel
+                context.Retrospectives.Add(new Retrospective
                 {
-                    Id = retroId,
+                    Guid = retroId,
                     Name = name
                 });
 
                 context.SaveChanges();
             }
 
-            var view = new RetrospectiveViewModel
+            var view = new Retrospective
             {
-                Id = retroId,
+                Guid = retroId,
             };
 
             return Json(new { id = retroId }, JsonRequestBehavior.AllowGet);
@@ -104,18 +104,18 @@ namespace SpeedyRetro.Controllers
 
             using (var context = new SpeedyRetroDbContext())
             {
-                var retrospective = context.Retrospectives.Where(retro => retro.Id == retroId).SingleOrDefault();
+                var retrospective = context.Retrospectives.Where(retro => retro.Guid == retroId).SingleOrDefault();
 
                 if (retrospective == null)
                 {
                     return RedirectToRoute("Add-Retro-Route");
                 }
 
-                var userModel = new UserModel
+                var userModel = new User
                 {
-                    Id = userId,
+                    Guid = userId,
                     Name = userViewModel.Name,
-                    Retrospectives = new List<RetrospectiveViewModel>()
+                    Retrospectives = new List<Retrospective>()
                 };
 
                 userModel.Retrospectives.Add(retrospective);

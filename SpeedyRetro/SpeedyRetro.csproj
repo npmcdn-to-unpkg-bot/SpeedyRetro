@@ -216,34 +216,21 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Data\Entities\Board.cs" />
+    <Compile Include="Data\Entities\Comment.cs" />
+    <Compile Include="Data\Entities\Lane.cs" />
+    <Compile Include="Data\Entities\Pool.cs" />
+    <Compile Include="Data\Entities\Retrospective.cs" />
+    <Compile Include="Data\SpeedyRetroDbContext.cs" />
+    <Compile Include="Data\Entities\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201606082140445_InitialCreate.cs" />
-    <Compile Include="Migrations\201606082140445_InitialCreate.Designer.cs">
-      <DependentUpon>201606082140445_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606211941040_AddUserMigration.cs" />
-    <Compile Include="Migrations\201606211941040_AddUserMigration.Designer.cs">
-      <DependentUpon>201606211941040_AddUserMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606222016221_ManyToManyMigration.cs" />
-    <Compile Include="Migrations\201606222016221_ManyToManyMigration.Designer.cs">
-      <DependentUpon>201606222016221_ManyToManyMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CommentModel.cs" />
-    <Compile Include="Models\LaneModel.cs" />
-    <Compile Include="Models\PoolModel.cs" />
-    <Compile Include="Models\BoardModel.cs" />
     <Compile Include="Models\CentralHub.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JwtToken.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\UserModel.cs" />
-    <Compile Include="Models\RetrospectiveViewModel.cs" />
-    <Compile Include="Models\SpeedyRetroDbContext.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -353,17 +340,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201606082140445_InitialCreate.resx">
-      <DependentUpon>201606082140445_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606211941040_AddUserMigration.resx">
-      <DependentUpon>201606211941040_AddUserMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606222016221_ManyToManyMigration.resx">
-      <DependentUpon>201606222016221_ManyToManyMigration.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

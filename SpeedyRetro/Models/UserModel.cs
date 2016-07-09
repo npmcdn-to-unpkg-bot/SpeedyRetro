@@ -9,6 +9,8 @@ namespace SpeedyRetro.Models
 
         public string Name { get; set; }
 
-        public ICollection<RetrospectiveViewModel> Retrospectives { get; set; }
+        public ICollection<RetrospectiveModel> Retrospectives { get; set; }
+
+        public ICollection<CommentModel> Comments { get; set; }
     }
 }

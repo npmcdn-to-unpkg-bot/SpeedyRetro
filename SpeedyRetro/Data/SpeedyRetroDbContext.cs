@@ -5,7 +5,9 @@ namespace SpeedyRetro.Data.Entities
     public class SpeedyRetroDbContext : DbContext
     {
         public SpeedyRetroDbContext() : base("SpeedyRetroConnection")
-        { }
+        {
+            Database.SetInitializer(new SpeedyRetroDbInitialiser());
+        }
 
         public DbSet<Board> Boards { get; set; }
 
@@ -21,11 +23,18 @@ namespace SpeedyRetro.Data.Entities
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Board>()
-                .HasRequired(b => b.Retrospective);
+            //modelBuilder.Entity<Board>()
+            //    .HasRequired(b => b.Retrospective)
+            //    .WithOptional();
 
-            modelBuilder.Entity<Pool>()
-                .HasRequired(p => p.Board);
+            modelBuilder.Entity<Retrospective>()
+                .HasRequired(r => r.Board);
+
+            //modelBuilder.Entity<Pool>()
+            //    .HasRequired(p => p.Board);
+
+            modelBuilder.Entity<Board>()
+                .HasRequired(b => b.Pool);
         }
     }
 }

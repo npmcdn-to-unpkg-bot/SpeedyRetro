@@ -74,8 +74,16 @@ namespace SpeedyRetro.Controllers
 
             using (var context = new SpeedyRetroDbContext())
             {
+                var defaultPool = context.Pools.Where(pool => pool.Id == 1).Single();
+
+                var board = new Board
+                {
+                    Pool = defaultPool
+                };
+
                 context.Retrospectives.Add(new Retrospective
                 {
+                    Board = board,
                     Guid = retroId,
                     Name = name
                 });

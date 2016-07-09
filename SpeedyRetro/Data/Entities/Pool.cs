@@ -6,7 +6,7 @@ namespace SpeedyRetro.Data.Entities
     {
         public int Id { get; set; }
 
-        public int BoardId { get; set; }
+        public int? BoardId { get; set; }
 
         public string Name { get; set; }
 

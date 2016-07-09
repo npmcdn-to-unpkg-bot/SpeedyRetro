@@ -28084,3 +28084,4 @@ SignalR.Transports.TransportHeartBeat Information: 0 : Connection adb0e4a6-6cd2-
 SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(adb0e4a6-6cd2-4d13-afba-c217a2874fa4)
 SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(adb0e4a6-6cd2-4d13-afba-c217a2874fa4)
 SignalR.Transports.TransportHeartBeat Verbose: 0 : KeepAlive(adb0e4a6-6cd2-4d13-afba-c217a2874fa4)
+SignalR.Transports.TransportHeartBeat Information: 0 : Connection 3cc73e19-dca2-46c9-961a-52c961909692 is New.

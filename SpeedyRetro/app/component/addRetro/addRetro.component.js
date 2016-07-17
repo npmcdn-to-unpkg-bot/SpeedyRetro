@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../hub/svc/retro.service', '../../component/login/login.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../../hub/svc/retro.service', '../../hub/svc/user.service', '../../hub/entities/user', '../../hub/entities/retro'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../../hub/svc/retro.servic
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, retro_service_1, login_component_1;
+    var core_1, router_1, retro_service_1, user_service_1, user_1, retro_1;
     var AddRetroComponent;
     return {
         setters:[
@@ -23,38 +23,44 @@ System.register(['angular2/core', 'angular2/router', '../../hub/svc/retro.servic
             function (retro_service_1_1) {
                 retro_service_1 = retro_service_1_1;
             },
-            function (login_component_1_1) {
-                login_component_1 = login_component_1_1;
+            function (user_service_1_1) {
+                user_service_1 = user_service_1_1;
+            },
+            function (user_1_1) {
+                user_1 = user_1_1;
+            },
+            function (retro_1_1) {
+                retro_1 = retro_1_1;
             }],
         execute: function() {
             AddRetroComponent = (function () {
-                function AddRetroComponent(_dynamicComponentLoader, _elementRef, _retroService, _router) {
-                    this._dynamicComponentLoader = _dynamicComponentLoader;
-                    this._elementRef = _elementRef;
+                function AddRetroComponent(_retroService, _router, _userService) {
                     this._retroService = _retroService;
                     this._router = _router;
+                    this._userService = _userService;
+                    this.user = new user_1.User();
+                    this.retro = new retro_1.Retro();
+                    this.login = { 'id': Math.random() + '_username' };
                 }
-                AddRetroComponent.prototype.ngOnInit = function () {
-                    this.renderUser();
-                };
                 AddRetroComponent.prototype.createRetro = function () {
                     var _this = this;
-                    this._retroService.add()
+                    this._retroService.add(this.retro.name)
                         .subscribe(function (retro) {
-                        _this._router.navigate(['Route-Retro-Board', { 'retroId': retro.id }]);
+                        _this.user.retroId = retro.id;
+                        _this._userService.add(_this.user)
+                            .subscribe(function (res) {
+                            _this._router.navigate(['Route-Retro-Board', { 'retroId': retro.id }]);
+                        }, function (error) { return _this.error = error; });
                     }, function (error) { return _this.error = error; });
-                };
-                AddRetroComponent.prototype.renderUser = function () {
-                    this._dynamicComponentLoader.loadIntoLocation(login_component_1.LoginComponent, this._elementRef, 'login');
                 };
                 AddRetroComponent = __decorate([
                     core_1.Component({
                         selector: 'sr-addRetro',
                         templateUrl: 'app/component/addRetro/html/addRetro.component.html',
                         styleUrls: ['app/component/addRetro/css/addRetro.component.css'],
-                        providers: [retro_service_1.RetroService],
+                        providers: [retro_service_1.RetroService, user_service_1.UserService],
                     }), 
-                    __metadata('design:paramtypes', [core_1.DynamicComponentLoader, core_1.ElementRef, retro_service_1.RetroService, router_1.Router])
+                    __metadata('design:paramtypes', [retro_service_1.RetroService, router_1.Router, user_service_1.UserService])
                 ], AddRetroComponent);
                 return AddRetroComponent;
             }());

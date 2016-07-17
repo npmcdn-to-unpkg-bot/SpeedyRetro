@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using SpeedyRetro.Data.Entities;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SpeedyRetro.Models
@@ -9,7 +11,7 @@ namespace SpeedyRetro.Models
     public class CentralHub : Hub
     {
         //This should only be called when updating a comment
-        public void Send(Guid retroId, string userComment, string commentState, string commentId)
+        public void Send(Guid retroId, string message, int laneId, Guid commentId)
         {
             //var userId2 = Clients.Caller.userId;
 
@@ -18,8 +20,28 @@ namespace SpeedyRetro.Models
             //if comment exist check lane/commentState against pool associated with the board
             //pool has a 1:1 mapping with board and a 1:N mapping with lanes
 
-            Clients.OthersInGroup(retroId.ToString()).onCommentStateChanged(userComment, commentState, commentId);
-            //Clients.All.onCommentStateChanged(userComment, commentState, commentId);
+            //get userID from JWT cookie and ensure that user is allowed to update the retro
+            //check the users associated with the retro for the user ID
+
+            using (var context = new SpeedyRetroDbContext())
+            {
+                var comment = context.Comments.Single(c => c.Guid == commentId);
+
+                //if (comment == null)
+                //{
+                //    comment = new Comment();
+
+                //    comment.Guid = commentId = Guid.NewGuid();
+                //}
+
+                comment.Message = message;
+
+                comment.LaneId = laneId;
+
+                context.SaveChanges();
+            }
+
+            Clients.OthersInGroup(retroId.ToString()).onCommentStateChanged(message, laneId, commentId);
         }
 
         public Task JoinGroup(string groupName)

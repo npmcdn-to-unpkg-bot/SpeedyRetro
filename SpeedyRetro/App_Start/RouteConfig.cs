@@ -22,9 +22,21 @@ namespace SpeedyRetro
             );
 
             routes.MapRoute(
+                name: "Pool-Route",
+                url: "pool/{id}",
+                defaults: new { controller = "Home", action = "Pool" }
+            );
+
+            routes.MapRoute(
                 name: "Add-User-Route",
                 url: "adduser",
                 defaults: new { controller = "Home", action = "AddUser" }
+            );
+
+            routes.MapRoute(
+                name: "Get-CommentId-Route",
+                url: "commentid",
+                defaults: new { controller = "Home", action = "CommentId" }
             );
 
             routes.MapRoute(

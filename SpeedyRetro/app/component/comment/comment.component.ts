@@ -10,7 +10,7 @@ import {CommentService} from '../../hub/svc/comment.service';
 })
 export class CommentComponent implements OnInit{
     retroId: string;
-    comment = { 'id': Math.random(), 'userId': 'blah'};
+    commentId: string = "";
 
     constructor(private _commentService: CommentService,
         private _routeParams: RouteParams) {

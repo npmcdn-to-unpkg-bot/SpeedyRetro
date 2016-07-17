@@ -1,8 +1,12 @@
-﻿namespace SpeedyRetro.Data.Entities
+﻿using System;
+
+namespace SpeedyRetro.Data.Entities
 {
     public class Comment
     {
         public int Id { get; set; }
+
+        public Guid Guid { get; set; }
 
         public int LaneId { get; set; }
 

@@ -35,15 +35,8 @@ System.register(['angular2/core', 'angular2/router', '../../component/login/logi
                     this._router = _router;
                     this._dynamicComponentLoader = _dynamicComponentLoader;
                     this._elementRef = _elementRef;
-                    //userExists: boolean = true;
-                    this.retroExist = true;
                 }
                 AppComponent.prototype.ngOnInit = function () {
-                    if (!this.retroExist) {
-                        this._router.navigate(['Route-Add-Retro']);
-                    }
-                    else {
-                    }
                 };
                 AppComponent = __decorate([
                     core_1.Component({

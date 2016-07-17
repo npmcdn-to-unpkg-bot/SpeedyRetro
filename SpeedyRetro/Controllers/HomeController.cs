@@ -99,6 +99,20 @@ namespace SpeedyRetro.Controllers
             return Json(new { id = retroId }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult Pool(int id)
+        {
+            using (var context = new SpeedyRetroDbContext())
+            {
+                var pool = context.Pools
+                    .Include("Lanes")
+                    .Where(p => p.Id == id)
+                    .SingleOrDefault();
+
+                return Json(pool, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpPost]
         public ActionResult AddUser(UserViewModel userViewModel)
         {
@@ -162,6 +176,15 @@ namespace SpeedyRetro.Controllers
             //this.HttpContext.Response.AppendCookie(retroCookie);
 
             return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult CommentId()
+        {
+
+            //add logic to ADD the comment so that their is an association
+            //with the current user
+            return Json(new { id = Guid.NewGuid() }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Start()

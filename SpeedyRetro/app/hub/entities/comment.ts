@@ -1,6 +1,6 @@
 export class Comment {
     id: string;
     message: string;
-    state: string;
+    state: Number;
     retroId: string;
 }

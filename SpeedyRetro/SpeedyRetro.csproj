@@ -319,9 +319,12 @@
     <TypeScriptCompile Include="app\component\_start\app.component.ts" />
     <TypeScriptCompile Include="app\component\comment\comment.component.ts" />
     <TypeScriptCompile Include="app\hub\entities\comment.ts" />
+    <TypeScriptCompile Include="app\hub\entities\lane.ts" />
+    <TypeScriptCompile Include="app\hub\entities\pool.ts" />
     <TypeScriptCompile Include="app\hub\entities\user.ts" />
     <TypeScriptCompile Include="app\hub\entities\retro.ts" />
     <TypeScriptCompile Include="app\hub\svc\centralHub.service.ts" />
+    <TypeScriptCompile Include="app\hub\svc\pool.service.ts" />
     <TypeScriptCompile Include="app\hub\svc\user.service.ts" />
     <TypeScriptCompile Include="app\hub\svc\retro.service.ts" />
     <TypeScriptCompile Include="app\hub\svc\comment.service.ts" />

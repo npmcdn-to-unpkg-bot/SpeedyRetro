@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../hub/svc/user.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../../hub/svc/user.service', '../../hub/entities/user'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../../hub/svc/user.service
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, user_service_1;
+    var core_1, router_1, user_service_1, user_1;
     var LoginComponent;
     return {
         setters:[
@@ -22,6 +22,9 @@ System.register(['angular2/core', 'angular2/router', '../../hub/svc/user.service
             },
             function (user_service_1_1) {
                 user_service_1 = user_service_1_1;
+            },
+            function (user_1_1) {
+                user_1 = user_1_1;
             }],
         execute: function() {
             LoginComponent = (function () {
@@ -29,21 +32,27 @@ System.register(['angular2/core', 'angular2/router', '../../hub/svc/user.service
                     this._router = _router;
                     this._routeParams = _routeParams;
                     this._userService = _userService;
+                    this.user = new user_1.User();
                 }
-                LoginComponent.prototype.onClick = function (event) {
+                LoginComponent.prototype.onClick = function () {
+                    //var username = document.getElementById(this.login.id).nodeValue;
                     var _this = this;
-                    var id = event.target.id;
-                    var username = document.getElementById(id).nodeValue;
+                    //check session storage for temp retro ID
+                    //if retro ID exists render login box and proceed
+                    //if retro ID does not exits redirect to add retro page
+                    //let retroId = document.cookie.replace(/(?:(?:^|.*;\s*)sr-temp-retroId\s*\=\s*([^;]*).*$)|^.*$/, "$1");
                     var retroId = this._routeParams.get('retroId');
-                    this._userService.add({ 'username': username })
-                        .subscribe(function (res) {
-                        if (retroId) {
-                            _this._router.navigate(['Route-Retro-Board', { 'retroId': retroId }]);
-                        }
-                        else {
-                            _this._router.navigate(['Route-Add-Retro']);
-                        }
-                    });
+                    if (retroId) {
+                        this._userService.add({ 'name': this.user.name, 'retroId': retroId })
+                            .subscribe(function (res) {
+                            if (retroId) {
+                                _this._router.navigate(['Route-Retro-Board', { 'retroId': retroId }]);
+                            }
+                        });
+                    }
+                    else {
+                        this._router.navigate(['Route-Add-Retro']);
+                    }
                 };
                 LoginComponent = __decorate([
                     core_1.Component({

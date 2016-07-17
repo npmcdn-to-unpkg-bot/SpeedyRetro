@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../comment/comment.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../hub/svc/pool.service', '../comment/comment.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../comment/comm
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Rx_1, comment_component_1;
+    var core_1, router_1, Rx_1, pool_service_1, comment_component_1;
     var BoardComponent;
     return {
         setters:[
@@ -23,27 +23,38 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../comment/comm
             function (Rx_1_1) {
                 Rx_1 = Rx_1_1;
             },
+            function (pool_service_1_1) {
+                pool_service_1 = pool_service_1_1;
+            },
             function (comment_component_1_1) {
                 comment_component_1 = comment_component_1_1;
             }],
         execute: function() {
             BoardComponent = (function () {
-                function BoardComponent(_routeParams, _dynamicComponentLoader, _elementRef) {
+                function BoardComponent(_router, _routeParams, _dynamicComponentLoader, _elementRef, _poolService) {
+                    this._router = _router;
                     this._routeParams = _routeParams;
                     this._dynamicComponentLoader = _dynamicComponentLoader;
                     this._elementRef = _elementRef;
-                    this.lanes = [{ 'name': 'Good :)', 'state': 'good' },
-                        { 'name': 'Bad :(', 'state': 'bad' },
-                        { 'name': 'Action Points !', 'state': 'action' }];
+                    this._poolService = _poolService;
+                    this.lanes = [{ 'name': 'Good :)', 'state': 1 },
+                        { 'name': 'Bad :(', 'state': 2 },
+                        { 'name': 'Action Points!', 'state': 3 }];
                     this.subject = new Rx_1.Subject();
                 }
                 BoardComponent.prototype.ngOnInit = function () {
+                    var _this = this;
                     var retroId = this._routeParams.get('retroId');
                     if (retroId) {
+                        this._poolService.get({ 'id': 1 })
+                            .subscribe(function (pool) {
+                            _this.lanes = pool.lanes;
+                        });
+                        this.renderComment();
                     }
                     else {
+                        this._router.navigate(['Route-Add-Retro']);
                     }
-                    this.renderComment();
                 };
                 BoardComponent.prototype.addComment = function () {
                     this.renderComment();
@@ -69,11 +80,13 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../comment/comm
                         selector: 'sr-board',
                         templateUrl: 'app/component/board/html/board.component.html',
                         styleUrls: ['app/component/board/css/board.component.css'],
+                        providers: [pool_service_1.PoolService],
                         directives: [comment_component_1.CommentComponent]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, core_1.DynamicComponentLoader, core_1.ElementRef])
+                    __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, core_1.DynamicComponentLoader, core_1.ElementRef, (typeof (_a = typeof pool_service_1.PoolService !== 'undefined' && pool_service_1.PoolService) === 'function' && _a) || Object])
                 ], BoardComponent);
                 return BoardComponent;
+                var _a;
             }());
             exports_1("BoardComponent", BoardComponent);
         }

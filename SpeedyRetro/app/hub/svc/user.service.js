@@ -29,7 +29,10 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
                     this._http = _http;
                 }
                 UserService.prototype.add = function (user) {
-                    return this._http.get('/home/login')
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    var requestOptions = new http_1.RequestOptions({ 'headers': headers });
+                    return this._http.post('/adduser/', JSON.stringify(user), requestOptions)
                         .map(this.checkResponse)
                         .catch(this.handleError);
                 };

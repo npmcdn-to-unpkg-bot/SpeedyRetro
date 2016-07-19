@@ -16,9 +16,9 @@ export class CommentService {
         this._centralHubService.startConnection(retroId);
     }
 
-    getCommentId(): Observable<Comment> {
+    getCommentId(retroId: string): Observable<Comment> {
         //comment is added at creation time hence no need for a model
-        return this._http.get('/commentid/')
+        return this._http.get('/commentid/' + retroId)
             .map(this.extractData)
             .catch(this.handleError);
     }

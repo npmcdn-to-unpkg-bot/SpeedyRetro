@@ -35,7 +35,7 @@ namespace SpeedyRetro
 
             routes.MapRoute(
                 name: "Get-CommentId-Route",
-                url: "commentid",
+                url: "commentid/{retroId}",
                 defaults: new { controller = "Home", action = "CommentId" }
             );
 

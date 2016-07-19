@@ -179,12 +179,62 @@ namespace SpeedyRetro.Controllers
         }
 
         [HttpGet]
-        public ActionResult CommentId()
+        public ActionResult CommentId(string retroId)
         {
 
             //add logic to ADD the comment so that their is an association
             //with the current user
-            return Json(new { id = Guid.NewGuid() }, JsonRequestBehavior.AllowGet);
+
+            var retroGuid = Guid.Parse(retroId);
+
+            var cookies = this.HttpContext.Request.Cookies;
+
+            var userCookie = cookies["sr_user"];
+
+            var commentGuid = Guid.NewGuid();
+
+            if (userCookie == null)
+            {
+                return RedirectToRoute("Login-Route");
+            }
+            else
+            {
+                var jwtToken = new JwtToken().DecodedValue(userCookie.Value);
+
+                var payload = JsonConvert.DeserializeObject<Dictionary<string, object>>(jwtToken["Payload"]);
+
+                var userGuid = Guid.Parse(payload["sr_uid"].ToString());
+
+                using (var context = new SpeedyRetroDbContext())
+                {
+                    var user = context.Users
+                        .Where(u => u.Guid == userGuid)
+                        .Single();
+
+                    var startLane = context.Lanes
+                        .Where(l => l.Id == 1)
+                        .Single();
+
+                    var board = context.Boards
+                        .Where(b => b.Retrospective.Guid == retroGuid)
+                        .Single();
+
+                    var comment = new Comment
+                    {
+                        Board = board,
+                        Guid = commentGuid,
+                        Lane = startLane,
+                        User = user
+                    };
+
+                    context.Comments.Add(comment);
+
+                    context.SaveChanges();
+                }
+
+            }
+
+            return Json(new { id = commentGuid }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Start()

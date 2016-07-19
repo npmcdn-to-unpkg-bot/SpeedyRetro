@@ -222,3 +222,5 @@ pip-log.txt
 ## Node
 #############
 SpeedyRetro/node_modules/
+SpeedyRetro/App_Data/
+SpeedyRetro/transports.log.txt

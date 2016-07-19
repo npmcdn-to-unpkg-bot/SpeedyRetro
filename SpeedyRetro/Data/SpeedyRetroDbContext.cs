@@ -23,15 +23,8 @@ namespace SpeedyRetro.Data.Entities
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Board>()
-            //    .HasRequired(b => b.Retrospective)
-            //    .WithOptional();
-
             modelBuilder.Entity<Retrospective>()
                 .HasRequired(r => r.Board);
-
-            //modelBuilder.Entity<Pool>()
-            //    .HasRequired(p => p.Board);
 
             modelBuilder.Entity<Board>()
                 .HasRequired(b => b.Pool);

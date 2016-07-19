@@ -66,7 +66,9 @@ export class BoardComponent implements OnInit {
     }
 
     private renderComment() {
-        this._commentService.getCommentId()
+        let retroId = this._routeParams.get('retroId');
+
+        this._commentService.getCommentId(retroId)
             .subscribe(comment => {
                 this._dynamicComponentLoader.loadIntoLocation(CommentComponent, this._elementRef, 'comment')
                     .then(compRef => {

@@ -10,11 +10,13 @@ namespace SpeedyRetro.Data
         {
             var lanes = new List<Lane>(3);
 
-            lanes.Add(new Lane { Id = 1, Name = "Good" });
+            lanes.Add(new Lane { Id = 1, Name = "Start" });
 
-            lanes.Add(new Lane { Id = 2, Name = "Bad" });
+            lanes.Add(new Lane { Id = 2, Name = "Good" });
 
-            lanes.Add(new Lane { Id = 3, Name = "Action Point" });
+            lanes.Add(new Lane { Id = 3, Name = "Bad" });
+
+            lanes.Add(new Lane { Id = 4, Name = "Action Point" });
 
             //var board = new Board { Id = 1, Name = "Default Board" };
 

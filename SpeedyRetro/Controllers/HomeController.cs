@@ -4,6 +4,7 @@ using SpeedyRetro.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,7 +34,7 @@ namespace SpeedyRetro.Controllers
 
             if (userCookie == null)
             {
-                return RedirectToRoute("Login-Route");
+                return RedirectToRoute("Login-Route", new { id = id });
             }
             else
             {
@@ -53,7 +54,7 @@ namespace SpeedyRetro.Controllers
 
                     if (userModel == null)
                     {
-                        return RedirectToRoute("Login-Route");
+                        return RedirectToRoute("Login-Route", new { id = id });
                     }
                     else
                     {
@@ -68,7 +69,7 @@ namespace SpeedyRetro.Controllers
             return View("~/Views/Home/Retrospective.cshtml");
         }
 
-        public JsonResult AddRetro(string name)
+        public async Task<JsonResult> AddRetro(string name)
         {
             var retroId = Guid.NewGuid();
 
@@ -107,7 +108,7 @@ namespace SpeedyRetro.Controllers
 
                 pool.BoardId = board.Id;
 
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
 
             return Json(new { id = retroId }, JsonRequestBehavior.AllowGet);
@@ -128,7 +129,7 @@ namespace SpeedyRetro.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddUser(UserViewModel userViewModel)
+        public async Task<ActionResult> AddUser(UserViewModel userViewModel)
         {
             var cookies = this.HttpContext.Request.Cookies;
 
@@ -156,7 +157,7 @@ namespace SpeedyRetro.Controllers
 
                 context.Users.Add(userModel);
 
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
 
             var header = new Dictionary<string, object>
@@ -199,7 +200,7 @@ namespace SpeedyRetro.Controllers
 
             if (userCookie == null)
             {
-                return RedirectToRoute("Login-Route");
+                return RedirectToRoute("Login-Route", new { id = retroId });
             }
             else
             {

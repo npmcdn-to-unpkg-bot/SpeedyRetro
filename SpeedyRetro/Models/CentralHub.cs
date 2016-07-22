@@ -17,9 +17,10 @@ namespace SpeedyRetro.Models
         {
             var cookies = Context.RequestCookies;
 
-            var userCookie = cookies["sr_user"];
+            //replace spaces with + -> bug in Context
+            var userCookie = cookies["sr_user"].Value.Replace(" ", "+");
 
-            var jwtToken = new JwtToken().DecodedValue(userCookie.Value);
+            var jwtToken = new JwtToken().DecodedValue(userCookie);
 
             var payload = JsonConvert.DeserializeObject<Dictionary<string, object>>(jwtToken["Payload"]);
 
@@ -85,13 +86,6 @@ namespace SpeedyRetro.Models
         }
     }
 
-    public enum CommentState
-    {
-        Good = 0,
-        Bad = 1,
-        Action = 2
-    }
-
     public class ErrorHandlingPipelineModule : HubPipelineModule
     {
         protected override void OnIncomingError(ExceptionContext exceptionContext, IHubIncomingInvokerContext invokerContext)
@@ -102,7 +96,6 @@ namespace SpeedyRetro.Models
                 Debug.WriteLine("=> Inner Exception " + exceptionContext.Error.InnerException.Message);
             }
             base.OnIncomingError(exceptionContext, invokerContext);
-
         }
     }
 }

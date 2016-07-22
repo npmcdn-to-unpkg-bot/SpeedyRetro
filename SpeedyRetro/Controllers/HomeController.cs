@@ -74,12 +74,21 @@ namespace SpeedyRetro.Controllers
 
             using (var context = new SpeedyRetroDbContext())
             {
-                var defaultPool = context.Pools.Where(pool => pool.Id == 1).Single();
+                var defaultPool = context.Pools
+                    .Include("Lanes")
+                    .Where(p => p.Id == 1)
+                    .Single();
+
+                var pool = new Pool
+                {
+                    Lanes = defaultPool.Lanes,
+                    Name = "New Pool"
+                };
 
                 var board = new Board
                 {
-                    Name = "Default Board",
-                    Pool = defaultPool,
+                    Name = "New Board",
+                    Pool = pool,
                     PoolId = 1
                 };
 
@@ -95,6 +104,8 @@ namespace SpeedyRetro.Controllers
                 context.SaveChanges();
 
                 board.RetrospectiveId = retrospective.Id;
+
+                pool.BoardId = board.Id;
 
                 context.SaveChanges();
             }
@@ -120,8 +131,6 @@ namespace SpeedyRetro.Controllers
         public ActionResult AddUser(UserViewModel userViewModel)
         {
             var cookies = this.HttpContext.Request.Cookies;
-
-            //var retroCookie = cookies["sr-temp-retroId"];
 
             var retroId = Guid.Parse(userViewModel.RetroId);
 
@@ -174,20 +183,12 @@ namespace SpeedyRetro.Controllers
 
             this.HttpContext.Response.AppendCookie(httpCookie);
 
-            //retroCookie.Expires = DateTime.UtcNow.AddYears(-1);
-
-            //this.HttpContext.Response.AppendCookie(retroCookie);
-
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult CommentId(string retroId)
         {
-
-            //add logic to ADD the comment so that their is an association
-            //with the current user
-
             var retroGuid = Guid.Parse(retroId);
 
             var cookies = this.HttpContext.Request.Cookies;

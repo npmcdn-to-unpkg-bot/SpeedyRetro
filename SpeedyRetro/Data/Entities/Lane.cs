@@ -1,13 +1,13 @@
-﻿namespace SpeedyRetro.Data.Entities
+﻿using System.Collections.Generic;
+
+namespace SpeedyRetro.Data.Entities
 {
     public class Lane
     {
         public int Id { get; set; }
 
-        public int PoolId { get; set; }
-
         public string Name { get; set; }
 
-        public Pool Pool { get; set; }
+        public ICollection<Pool> Pools { get; set; }
     }
 }

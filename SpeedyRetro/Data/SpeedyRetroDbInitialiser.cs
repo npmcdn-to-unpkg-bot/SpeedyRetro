@@ -8,7 +8,7 @@ namespace SpeedyRetro.Data
     {
         protected override void Seed(SpeedyRetroDbContext context)
         {
-            var lanes = new List<Lane>(3);
+            var lanes = new List<Lane>();
 
             lanes.Add(new Lane { Id = 1, Name = "Start" });
 

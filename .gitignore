@@ -224,3 +224,5 @@ pip-log.txt
 SpeedyRetro/node_modules/
 SpeedyRetro/App_Data/
 SpeedyRetro/transports.log.txt
+SpeedyRetro/App_Data/SpeedyRetro.mdf
+SpeedyRetro/App_Data/SpeedyRetro_log.ldf

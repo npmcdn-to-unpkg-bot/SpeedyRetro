@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Newtonsoft.Json;
 using SpeedyRetro.Data.Entities;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,26 +15,20 @@ namespace SpeedyRetro.Models
         //This should only be called when updating a comment
         public void Send(Guid retroId, string message, int laneId, Guid commentId)
         {
-            //var userId2 = Clients.Caller.userId;
+            var cookies = Context.RequestCookies;
 
-            //get board entity associated with retro
-            //get comment associated with the board entity
-            //if comment exist check lane/commentState against pool associated with the board
-            //pool has a 1:1 mapping with board and a 1:N mapping with lanes
+            var userCookie = cookies["sr_user"];
 
-            //get userID from JWT cookie and ensure that user is allowed to update the retro
-            //check the users associated with the retro for the user ID
+            var jwtToken = new JwtToken().DecodedValue(userCookie.Value);
+
+            var payload = JsonConvert.DeserializeObject<Dictionary<string, object>>(jwtToken["Payload"]);
+
+            var userGuid = Guid.Parse(payload["sr_uid"].ToString());
 
             using (var context = new SpeedyRetroDbContext())
             {
-                var comment = context.Comments.Single(c => c.Guid == commentId);
-
-                //if (comment == null)
-                //{
-                //    comment = new Comment();
-
-                //    comment.Guid = commentId = Guid.NewGuid();
-                //}
+                var comment = context.Comments
+                    .Single(c => c.Guid == commentId && c.User.Guid == userGuid);
 
                 comment.Message = message;
 

@@ -78,23 +78,26 @@ namespace SpeedyRetro.Controllers
 
                 var board = new Board
                 {
-                    Pool = defaultPool
+                    Name = "Default Board",
+                    Pool = defaultPool,
+                    PoolId = 1
                 };
 
-                context.Retrospectives.Add(new Retrospective
+                var retrospective = new Retrospective
                 {
                     Board = board,
                     Guid = retroId,
                     Name = name
-                });
+                };
+
+                context.Retrospectives.Add(retrospective);
+
+                context.SaveChanges();
+
+                board.RetrospectiveId = retrospective.Id;
 
                 context.SaveChanges();
             }
-
-            var view = new Retrospective
-            {
-                Guid = retroId,
-            };
 
             return Json(new { id = retroId }, JsonRequestBehavior.AllowGet);
         }

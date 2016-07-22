@@ -15,10 +15,6 @@ export class PoolService {
 
         var requestOptions = new RequestOptions({ 'headers': headers });
 
-        //return this._http.post('/adduser/', JSON.stringify(user), requestOptions)
-        //    .map(this.checkResponse)
-        //    .catch(this.handleError);
-
         return this._http.get('/pool/' + id, requestOptions)
             .map(this.checkResponse)
             .catch(this.handleError);

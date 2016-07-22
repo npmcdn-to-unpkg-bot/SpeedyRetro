@@ -48,7 +48,7 @@ export class CommentService {
 
     private handleError(error: any) {
         let errMsg = error.message || 'Server error';
-        console.error(errMsg); // log to console instead
+        console.error(errMsg);
         return Observable.throw(errMsg);
     }
 }

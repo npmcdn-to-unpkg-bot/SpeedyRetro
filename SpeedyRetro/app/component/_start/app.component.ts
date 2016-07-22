@@ -1,12 +1,9 @@
 import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES, RouteParams} from 'angular2/router';
-import {Subject, Observer} from 'rxjs/Rx';
+import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {LoginComponent} from '../../component/login/login.component';
 import {BoardComponent} from '../../component/board/board.component';
 import {AddRetroComponent} from '../../component/addretro/addretro.component';
-import {Retro} from '../../hub/entities/retro';
-import {CommentService} from '../../hub/svc/comment.service';
 
 @Component({
     selector: 'my-app',

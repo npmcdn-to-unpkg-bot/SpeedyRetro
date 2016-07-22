@@ -19,13 +19,6 @@ export class LoginComponent {
     }
 
     onClick() {
-        //var username = document.getElementById(this.login.id).nodeValue;
-
-        //check session storage for temp retro ID
-        //if retro ID exists render login box and proceed
-        //if retro ID does not exits redirect to add retro page
-
-        //let retroId = document.cookie.replace(/(?:(?:^|.*;\s*)sr-temp-retroId\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         let retroId = this._routeParams.get('retroId');
 
         if (retroId) {

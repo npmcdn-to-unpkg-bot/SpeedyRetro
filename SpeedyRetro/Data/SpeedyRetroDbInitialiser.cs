@@ -18,8 +18,6 @@ namespace SpeedyRetro.Data
 
             lanes.Add(new Lane { Id = 4, Name = "Action Point" });
 
-            //var board = new Board { Id = 1, Name = "Default Board" };
-
             var pool = new Pool { Id = 1, Name = "Default Pool", Lanes = lanes };
 
             context.Pools.Add(pool);

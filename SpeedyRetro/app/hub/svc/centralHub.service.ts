@@ -11,10 +11,6 @@ export class CentralHubService {
 
     public centralHubConnection: SignalR.Hub.Connection;
 
-    //constructor() {
-    //    //this.startConnection();
-    //}
-
     public startConnection(retroId) {
         this.centralHubConnection = jQuery.hubConnection();
         
@@ -46,8 +42,6 @@ export class CentralHubService {
         });
 
         this.centralHubConnection.start().done(function () {
-            //let retroId = this._routeParams.get('retroId');
-
             centralHub.invoke('JoinGroup', retroId);
         })
         .fail(function (error) {

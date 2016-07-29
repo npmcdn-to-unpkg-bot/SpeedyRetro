@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, AfterViewInit} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 
 import {CommentService} from '../../hub/svc/comment.service';
@@ -8,7 +8,7 @@ import {CommentService} from '../../hub/svc/comment.service';
     templateUrl: 'app/component/comment/html/comment.component.html',
     styleUrls: ['app/component/comment/css/comment.component.css']
 })
-export class CommentComponent implements OnInit{
+export class CommentComponent implements OnInit, AfterViewInit{
     retroId: string;
     commentId: string = "";
 
@@ -22,11 +22,16 @@ export class CommentComponent implements OnInit{
         this._commentService.startConnection(this.retroId);
     }
 
+    ngAfterViewInit() {
+
+    }
+
     onChange(event) {
         this.update(event);
     }
 
     onDragStart(event) {
+
         var id = event.target.id;
 
         var data = { 'id': id };

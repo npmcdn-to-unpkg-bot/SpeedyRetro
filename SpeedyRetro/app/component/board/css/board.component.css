@@ -1,38 +1,4 @@
-/*label {
-  display: inline-block;
-  width: 3em;
-  margin: .5em 0;
-  color: #607D8B;
-  font-weight: bold;
-}
-input {
-  height: 2em;
-  font-size: 1em;
-  padding-left: .4em;
-}
-button {
-  margin-top: 20px;
-  font-family: Arial;
-  background-color: #eee;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer; cursor: hand;
-}
-button:hover {
-  background-color: #cfd8dc;
-}
-button:disabled {
-  background-color: #eee;
-  color: #ccc; 
-  cursor: auto;
-}
-
-*/
-
-
-
-.droppable {
+/*.droppable {
     width: 350px;
     height: 70px;
     padding: 10px;
@@ -196,4 +162,11 @@ nav a {
 
 * {
     font-family: Arial, Helvetica, sans-serif;
+}*/
+
+.droppable {
+    padding: 5px;
+    width: 20em;
+    height: 100em;
+    border: 1px solid #808080;
 }

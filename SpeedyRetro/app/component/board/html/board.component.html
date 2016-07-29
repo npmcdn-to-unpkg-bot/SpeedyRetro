@@ -1,4 +1,68 @@
-<div>
+<section id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Retro Board</h2>
+                <hr class="star-primary">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-sm-2">
+                <button id="add" (click)="addComment()" class="btn btn-success btn-lg">Add Comment</button>
+            </div>
+            <div class="col-lg-3 col-sm-3 text-center" *ngFor="#lane of lanes">
+                {{lane.name}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 portfolio-item" id="start" >
+                <!--<a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="assets/img/portfolio/cabin.png" class="img-responsive" alt="">
+                </a>-->
+                <div #comment></div>
+            </div>
+            <div class="col-sm-3 portfolio-item" *ngFor="#lane of lanes" [attr.data-commentstate]="lane.id">
+                <!--<a class="portfolio-link">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>-->
+                    <div class="droppable" (drop)="onCommentDropped($event)" (dragover)="onCommentDragOver($event)">
+                    </div>
+                <!--</a>-->
+            </div>
+            <!--<div class="col-sm-3 portfolio-item">
+                <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="assets/img/portfolio/circus.png" class="img-responsive" alt="">
+                </a>
+            </div>
+            <div class="col-sm-3 portfolio-item">
+                <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="assets/img/portfolio/game.png" class="img-responsive" alt="">
+                </a>
+            </div>-->
+        </div>
+    </div>
+</section>
+
+
+<!--<div>
     <button id="add" (click)="addComment()">Add</button>
     <table class="table table-hover">
         <thead>
@@ -23,3 +87,97 @@
         </tbody>
     </table>
 </div>
+
+
+<div class="row">
+    <div class="col-lg-3 col-md-6" *ngFor="#lane of lanes" [attr.data-commentstate]="lane.id">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                    <span class="pull-left">{{lane.name}}</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <i class="fa fa-comments fa-5x"></i>
+                </div>
+                <div class="col-xs-9 text-right" (drop)="onCommentDropped($event)" (dragover)="onCommentDragOver($event)">
+                    <div class="huge">drag here</div>
+                </div>
+            </div>
+
+            <a href="#">
+
+            </a>
+        </div>
+    </div>
+    
+</div>-->
+
+<!--<div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tasks fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">12</div>
+                        <div>New Tasks!</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-shopping-cart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">124</div>
+                        <div>New Orders!</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-support fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">13</div>
+                        <div>Support Tickets!</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>-->

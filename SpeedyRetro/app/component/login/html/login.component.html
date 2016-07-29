@@ -1,2 +1,35 @@
-<input [(ngModel)]="user.name" type="text" placeholder="username" required />
-<button (click)="onClick()">Go</button>
+<!--<input [(ngModel)]="user.name" type="text" placeholder="username" required />
+<button (click)="onClick()">Go</button>-->
+
+
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Login</h2>
+                <hr class="star-primary">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <form name="sentMessage" novalidate>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Username</label>
+                            <input [(ngModel)]="user.name" type="text" class="form-control" placeholder="Username" required data-validation-required-message="Please enter your username.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit" class="btn btn-success btn-lg" (click)="onClick()">Go</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
